@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>Amir Pournasserian</Authors>
+    <Company>uBeac</Company>
+    <Product>ubeac.io</Product>
+    <PackageProjectUrl>https://www.ubeac.io/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ubeac/uBeac.Core</RepositoryUrl>
+  </PropertyGroup>
+
+</Project>
