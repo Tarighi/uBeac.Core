@@ -60,21 +60,21 @@ namespace uBeac.Core.Repositories.MongoDB
         {
             cancellationToken.ThrowIfCancellationRequested();
             var filter = Builders<TEntity>.Filter.Empty;
-            return (await Collection.FindAsync(filter, null, cancellationToken)).ToEnumerable();
+            return (await Collection.FindAsync(filter, null, cancellationToken)).ToEnumerable(cancellationToken);
         }
 
         public async Task<TEntity> GetById(TKey id, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
             var idFilter = GetIdFilter(id);
-            return (await Collection.FindAsync(idFilter, null, cancellationToken)).FirstOrDefault();
+            return (await Collection.FindAsync(idFilter, null, cancellationToken)).FirstOrDefault(cancellationToken);
         }
 
         public async Task<IEnumerable<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
             var idsFilter = GetIdsFilter(ids);
-            return (await Collection.FindAsync(idsFilter, null, cancellationToken)).ToEnumerable();
+            return (await Collection.FindAsync(idsFilter, null, cancellationToken)).ToEnumerable(cancellationToken);
         }
 
         public async Task Insert(TEntity entity, CancellationToken cancellationToken = default)
