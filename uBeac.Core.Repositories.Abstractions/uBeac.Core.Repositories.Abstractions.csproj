@@ -7,6 +7,7 @@
     <Product>ubeac.io</Product>
     <PackageProjectUrl>https://www.ubeac.io/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ubeac/uBeac.Core</RepositoryUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
