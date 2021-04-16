@@ -10,7 +10,7 @@ namespace uBeac.Core.Identity
     {
         public Role()
         {
-            Claims = new List<IdentityRoleClaim<string>>();
+            Claims = new List<IdentityRoleClaim<TKey>>();
         }
 
         public Role(string name) : this()
@@ -24,8 +24,7 @@ namespace uBeac.Core.Identity
             return Name;
         }
 
-        // todo: implement RoleClaim
-        public List<IdentityRoleClaim<string>> Claims { get; set; }
+        public List<IdentityRoleClaim<TKey>> Claims { get; set; }
     }
 
     public class Role : Role<Guid>, IEntity

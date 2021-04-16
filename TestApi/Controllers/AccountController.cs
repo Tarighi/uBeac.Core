@@ -17,13 +17,9 @@ namespace TestApi.Controllers
     public class AccountController : BaseController
     {
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly IConfiguration _configuration;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+        public AccountController(UserManager<User> userManager)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
-            _configuration = configuration;
         }
 
         [Post]

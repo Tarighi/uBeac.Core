@@ -57,7 +57,7 @@ namespace uBeac.Core.Identity
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            var exists = (await _repository.Find(x => x.UserName == user.UserName)).Any();
+            var exists = (await _repository.Find(x => x.UserName == user.UserName, cancellationToken)).Any();
             if (exists) return IdentityResult.Failed(new IdentityError { Code = "Username already exists." });
 
             await _repository.Insert(user, cancellationToken);

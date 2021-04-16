@@ -37,11 +37,7 @@ namespace uBeac.Core.Identity
         public async Task<IdentityResult> CreateAsync(TRole role, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var found = await _repository.Find(x => x.NormalizedName == role.NormalizedName, cancellationToken);
-
-            if (found == null)
-                await _repository.Insert(role, cancellationToken);
-
+            await _repository.Insert(role, cancellationToken);
             return IdentityResult.Success;
         }
 
@@ -61,38 +57,29 @@ namespace uBeac.Core.Identity
 
         public Task<string> GetRoleIdAsync(TRole role, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             return Task.FromResult(role.Id.ToString());
         }
 
-        public async Task<string> GetRoleNameAsync(TRole role, CancellationToken cancellationToken)
+        public Task<string> GetRoleNameAsync(TRole role, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            return (await _repository.GetById(role.Id, cancellationToken))?.Name ?? role.Name;
+            return Task.FromResult(role.Name);
         }
 
-        public async Task SetRoleNameAsync(TRole role, string roleName, CancellationToken cancellationToken)
+        public Task SetRoleNameAsync(TRole role, string roleName, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            if (string.IsNullOrEmpty(roleName)) throw new ArgumentNullException(nameof(roleName));
-
             role.Name = roleName;
-
-            await _repository.Replace(role, cancellationToken);
+            return Task.FromResult(0);
         }
 
         public Task<string> GetNormalizedRoleNameAsync(TRole role, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             return Task.FromResult(role.NormalizedName);
         }
 
-        public async Task SetNormalizedRoleNameAsync(TRole role, string normalizedRoleName, CancellationToken cancellationToken)
+        public Task SetNormalizedRoleNameAsync(TRole role, string normalizedRoleName, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             role.NormalizedName = normalizedRoleName;
-            await _repository.Replace(role, cancellationToken);
+            return Task.FromResult(0);
         }
 
         public async Task<TRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
@@ -111,42 +98,36 @@ namespace uBeac.Core.Identity
 
         public async Task<IList<Claim>> GetClaimsAsync(TRole role, CancellationToken cancellationToken = default)
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            if (role.Claims is null)
+                return await Task.FromResult(new List<Claim>());
 
-            var dbRole = await _repository.GetById(role.Id, cancellationToken);
-
-            return dbRole.Claims.Select(e => new Claim(e.ClaimType, e.ClaimValue)).ToList();
+            return role.Claims.Select(e => new Claim(e.ClaimType, e.ClaimValue)).ToList();
         }
 
-        public async Task AddClaimAsync(TRole role, Claim claim, CancellationToken cancellationToken = default)
+        public Task AddClaimAsync(TRole role, Claim claim, CancellationToken cancellationToken = default)
         {
-
-            cancellationToken.ThrowIfCancellationRequested();
-
             var currentClaim = role.Claims.FirstOrDefault(c => c.ClaimType == claim.Type && c.ClaimValue == claim.Value);
 
             if (currentClaim == null)
             {
-                var identityRoleClaim = new IdentityRoleClaim<string>()
+                var identityRoleClaim = new IdentityRoleClaim<TKey>()
                 {
                     ClaimType = claim.Type,
-                    ClaimValue = claim.Value
+                    ClaimValue = claim.Value,
+                    RoleId = role.Id,
+                    Id = 0 // todo: what should we do?
                 };
 
                 role.Claims.Add(identityRoleClaim);
-
-                await _repository.Replace(role, cancellationToken);
             }
 
+            return Task.FromResult(0);
         }
 
         public Task RemoveClaimAsync(TRole role, Claim claim, CancellationToken cancellationToken = default)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
             role.Claims.RemoveAll(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value);
-
-            return _repository.Replace(role, cancellationToken);
+            return Task.FromResult(0);
         }
 
         protected virtual void Dispose(bool disposing)
