@@ -52,9 +52,9 @@ namespace uBeac.Core.Services
             return Repository.InsertMany(entities, cancellationToken);
         }
 
-        public virtual Task<bool> Update(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual Task<TEntity> Update(TEntity entity, CancellationToken cancellationToken = default)
         {
-            return Repository.Update(entity, cancellationToken);
+            return Repository.Replace(entity, cancellationToken);
         }
     }
 

@@ -3,7 +3,7 @@ using uBeac.Core.Common;
 
 namespace TestApi.Models
 {
-    public class Unit : Entity
+    public class Unit : BaseEntity
     {
         public string Name { get; set; }
         public string Description { get; set; }

@@ -1,20 +1,20 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace uBeac.Core.Web
 {
     public class BaseStartup
     {
         public IConfigurationRoot Configuration { get; }
-        public IWebHostEnvironment Environment { get; }
+        public IHostEnvironment Environment { get; }
 
-        public BaseStartup(IWebHostEnvironment env)
+        public BaseStartup(IHostEnvironment env)
         {
             Environment = env;
             var configBuilder = new ConfigurationBuilder();
             configBuilder.AddJsonConfig(env);
-            configBuilder.AddEnvironmentVariables();
+            //configBuilder.AddEnvironmentVariables();
             Configuration = configBuilder.Build();
         }
 

@@ -15,7 +15,7 @@ namespace TestApi.Controllers
         private readonly IUnitService _service;
         private readonly IMapper _mapper;
 
-        public UnitController(IUnitService service, IMapper mapper) 
+        public UnitController(IUnitService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
@@ -33,8 +33,8 @@ namespace TestApi.Controllers
         public async Task<IResultSet<bool>> Update([Body] UnitUpdateRequestDTO dto, CancellationToken cancellationToken = default)
         {
             var model = _mapper.Map<Unit>(dto);
-            var isUpdated = await _service.Update(model, cancellationToken);
-            return isUpdated.ToResultSet();
+            var updated = await _service.Update(model, cancellationToken);
+            return (updated != null).ToResultSet();
         }
 
         [Post]
@@ -42,7 +42,7 @@ namespace TestApi.Controllers
         {
             var model = _mapper.Map<Unit>(dto);
             var isUpdated = await _service.Update(model, cancellationToken);
-            return isUpdated.ToResultSet();
+            return false.ToResultSet();
         }
 
         [PostById]

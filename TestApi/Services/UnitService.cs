@@ -8,7 +8,7 @@ namespace TestApi.Services
     {
     }
 
-    public class UnitService : EntityService<Unit>, IUnitService
+    public class UnitService : BaseEntityService<Unit>, IUnitService
     {
         public UnitService(IUnitRepository repository) : base(repository)
         {

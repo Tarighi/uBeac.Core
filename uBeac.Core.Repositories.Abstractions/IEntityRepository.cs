@@ -12,8 +12,7 @@ namespace uBeac.Core.Repositories.Abstractions
     {
         Task Insert(TEntity entity, CancellationToken cancellationToken = default);
         Task InsertMany(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
-        // todo: add update many
-        Task<bool> Update(TEntity entity, CancellationToken cancellationToken = default);
+        Task<TEntity> Replace(TEntity entity, CancellationToken cancellationToken = default);
         Task<bool> Delete(TKey id, CancellationToken cancellationToken = default);
         Task<long> DeleteMany(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
         Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken = default);
@@ -23,6 +22,17 @@ namespace uBeac.Core.Repositories.Abstractions
 
     public interface IEntityRepository<TEntity> : IEntityRepository<Guid, TEntity>
         where TEntity : IEntity
+    {
+    }
+
+    public interface IBaseEntityRepository<TKey, TEntity> : IEntityRepository<TKey, TEntity>
+      where TEntity : IBaseEntity<TKey>
+      where TKey : IEquatable<TKey>
+    {
+    }
+
+    public interface IBaseEntityRepository<TEntity> : IBaseEntityRepository<Guid, TEntity>
+       where TEntity : IBaseEntity
     {
     }
 }

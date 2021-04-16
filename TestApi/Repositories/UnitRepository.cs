@@ -4,11 +4,11 @@ using uBeac.Core.Repositories.MongoDB;
 
 namespace TestApi.Repositories
 {
-    public interface IUnitRepository : IEntityRepository<Unit>
+    public interface IUnitRepository : IBaseEntityRepository<Unit>
     {
     }
 
-    public class UnitRepository : MongoEntityRepository<Unit>, IUnitRepository
+    public class UnitRepository : MongoBaseEntityRepository<Unit>, IUnitRepository
     {
         public UnitRepository(MainDBContext mongoDatabase) : base(mongoDatabase)
         {

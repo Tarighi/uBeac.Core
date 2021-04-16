@@ -42,7 +42,7 @@ namespace uBeac.Core.Repositories.MongoDB
         public virtual async Task<long> DeleteMany(IEnumerable<TKey> ids, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var idsFilter = Builders<TEntity>.Filter.In(x=> x.Id, ids);
+            var idsFilter = Builders<TEntity>.Filter.In(x => x.Id, ids);
             var deleteResult = await Collection.DeleteManyAsync(idsFilter, cancellationToken);
             return deleteResult.DeletedCount;
         }
@@ -57,7 +57,7 @@ namespace uBeac.Core.Repositories.MongoDB
         public virtual async Task<TEntity> GetById(TKey id, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var idFilter = Builders<TEntity>.Filter.Eq(x=> x.Id, id);
+            var idFilter = Builders<TEntity>.Filter.Eq(x => x.Id, id);
             return (await Collection.FindAsync(idFilter, null, cancellationToken)).SingleOrDefault(cancellationToken);
         }
 
@@ -80,20 +80,91 @@ namespace uBeac.Core.Repositories.MongoDB
             await Collection.InsertManyAsync(entities, null, cancellationToken);
         }
 
-        public virtual Task<bool> Update(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual async Task<TEntity> Replace(TEntity entity, CancellationToken cancellationToken = default)
         {
-            // todo: implement here
             cancellationToken.ThrowIfCancellationRequested();
-            throw new NotImplementedException();
+            var idFilter = Builders<TEntity>.Filter.Eq(x => x.Id, entity.Id);
+            return await Collection.FindOneAndReplaceAsync(idFilter, entity, null, cancellationToken);
         }
 
     }
 
     public class MongoEntityRepository<TEntity> : MongoEntityRepository<Guid, TEntity>, IEntityRepository<TEntity>
-         where TEntity : IEntity
+        where TEntity : IEntity
     {
         public MongoEntityRepository(IMongoDBContext mongoDbContext) : base(mongoDbContext)
         {
         }
+
+        public override Task Insert(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            entity.Id = Guid.NewGuid();
+            return base.Insert(entity, cancellationToken);
+        }
+
+        public override Task InsertMany(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        {
+            foreach (var entity in entities)
+                entity.Id = Guid.NewGuid();
+
+            return base.InsertMany(entities, cancellationToken);
+        }
+
     }
+
+    public class MongoBaseEntityRepository<TKey, TEntity> : MongoEntityRepository<TKey, TEntity>, IBaseEntityRepository<TKey, TEntity>
+        where TEntity : IBaseEntity<TKey>
+        where TKey : IEquatable<TKey>
+    {
+        public MongoBaseEntityRepository(IMongoDBContext mongoDbContext) : base(mongoDbContext)
+        {
+        }
+        public override Task Insert(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            var now = DateTime.Now;
+            entity.CreateDate = now;
+            entity.UpdateDate = now;
+            return base.Insert(entity, cancellationToken);
+        }
+
+        public override Task InsertMany(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        {
+            var now = DateTime.Now;
+            foreach (var entity in entities) 
+            {
+                entity.CreateDate = now;
+                entity.UpdateDate = now;
+            }                
+            return base.InsertMany(entities, cancellationToken);
+        }
+
+        public override Task<TEntity> Replace(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            entity.UpdateDate = DateTime.Now;
+            return base.Replace(entity, cancellationToken);
+        }
+    }
+
+    public class MongoBaseEntityRepository<TEntity> : MongoBaseEntityRepository<Guid, TEntity>, IBaseEntityRepository<TEntity>
+        where TEntity : IBaseEntity
+    {
+        public MongoBaseEntityRepository(IMongoDBContext mongoDbContext) : base(mongoDbContext)
+        {
+        }
+
+        public override Task Insert(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            entity.Id = Guid.NewGuid();
+            return base.Insert(entity, cancellationToken);
+        }
+
+        public override Task InsertMany(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        {
+            foreach (var entity in entities)
+                entity.Id = Guid.NewGuid();
+
+            return base.InsertMany(entities, cancellationToken);
+        }
+    }
+
 }
