@@ -17,17 +17,16 @@ namespace TestApi
         {
         }
 
-        public void ConfigureServices(IServiceCollection services)
+        public override void ConfigureServices(IServiceCollection services)
         {
+            base.ConfigureServices(services);
+
+            services.AddMongo<MainDBContext>("TestConnection");
+
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<IUnitRepository, UnitRepository>();
 
             services.AddAutoMapper(typeof(MappingProfileForDTOs));
-
-            services.AddMongo<MainDBContext>("TestConnection");
-
-            services.AddSingleton<IConfiguration>(Configuration);
-            services.AddSingleton(Configuration);
 
             services.AddCoreSwaggerWithJWT("TestApi", "v1");
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace uBeac.Core.Web
 {
@@ -16,5 +17,12 @@ namespace uBeac.Core.Web
             configBuilder.AddEnvironmentVariables();
             Configuration = configBuilder.Build();
         }
+
+        public virtual void ConfigureServices(IServiceCollection services) 
+        {
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton(Configuration);
+        }
+
     }
 }
