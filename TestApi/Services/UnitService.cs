@@ -1,5 +1,5 @@
 ﻿using TestApi.Models;
-using uBeac.Core.Repositories.Abstractions;
+using TestApi.Repositories;
 using uBeac.Core.Services;
 
 namespace TestApi.Services
@@ -10,7 +10,7 @@ namespace TestApi.Services
 
     public class UnitService : EntityService<Unit>, IUnitService
     {
-        public UnitService(IEntityRepository<Unit> repository) : base(repository)
+        public UnitService(IUnitRepository repository) : base(repository)
         {
         }
     }

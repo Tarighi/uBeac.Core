@@ -7,16 +7,15 @@ namespace uBeac.Core.Repositories.MongoDB
         IMongoDatabase Database { get; }
     }
 
-    public class MongoDBContext : IMongoDBContext
+    public class MainDBContext : IMongoDBContext
     {
-        private readonly IMongoDatabase _database;
-
-        public MongoDBContext(IMongoDatabase database)
+        public MainDBContext(MongoDBOptions<MainDBContext> option)
         {
-            _database = database;
+            var mongoUrl = new MongoUrl(option.ConnectionString);
+            var client = new MongoClient(mongoUrl);
+            Database = client.GetDatabase(mongoUrl.DatabaseName);
         }
 
-        public IMongoDatabase Database => _database;
-
+        public IMongoDatabase Database { get; }
     }
 }

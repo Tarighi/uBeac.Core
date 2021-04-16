@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TestApi.Repositories;
 using TestApi.Services;
 using uBeac.Core.Repositories.Abstractions;
 using uBeac.Core.Repositories.MongoDB;
@@ -27,11 +28,11 @@ namespace TestApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUnitService, UnitService>();
-            //services.AddScoped<IUnitRepository, UnitRepository>();
-            services.AddScoped(typeof(IEntityRepository<>), typeof(MongoEntityRepository<>));
-            services.AddScoped(typeof(IEntityRepository<,>), typeof(MongoEntityRepository<,>));
+            services.AddScoped<IUnitRepository, UnitRepository>();
+
             services.AddAutoMapper(typeof(MappingProfileForDTOs));
-            services.AddMongo<MongoDBContext>("TestConnection");
+
+            services.AddMongo<MainDBContext>("TestConnection");
 
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddSingleton(Configuration);
