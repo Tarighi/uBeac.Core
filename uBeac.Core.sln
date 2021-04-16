@@ -7,23 +7,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.Core.Common", "uBeac.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{24F86BEC-414D-4D8C-A0A9-EE009520FD99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.Core.Repositories.Abstractions", "uBeac.Core.Repositories.Abstractions\uBeac.Core.Repositories.Abstractions.csproj", "{07A61CC2-0BBE-4785-8579-833876C706B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.Core.Repositories.Abstractions", "uBeac.Core.Repositories.Abstractions\uBeac.Core.Repositories.Abstractions.csproj", "{07A61CC2-0BBE-4785-8579-833876C706B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.Core.Repositories.MongoDB", "uBeac.Core.Repositories.MongoDB\uBeac.Core.Repositories.MongoDB.csproj", "{491C5CF4-EB2B-49F7-9DBD-41E181E8C865}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.Core.Repositories.MongoDB", "uBeac.Core.Repositories.MongoDB\uBeac.Core.Repositories.MongoDB.csproj", "{491C5CF4-EB2B-49F7-9DBD-41E181E8C865}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1B0E9D5D-7B20-493D-B41A-A5B21C2A66BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.Core.Services", "uBeac.Core.Services\uBeac.Core.Services.csproj", "{53D26F05-6C63-4EA8-8FEE-82A2AA5B628B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.Core.Services", "uBeac.Core.Services\uBeac.Core.Services.csproj", "{53D26F05-6C63-4EA8-8FEE-82A2AA5B628B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApi", "TestApi\TestApi.csproj", "{04773B9C-E4B6-4AC6-B652-322A400C651D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApi", "TestApi\TestApi.csproj", "{04773B9C-E4B6-4AC6-B652-322A400C651D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.Core.Configuration", "uBeac.Core.Configuration\uBeac.Core.Configuration.csproj", "{CB99173E-2318-44E3-BA09-1478DC5644A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.Core.Configuration", "uBeac.Core.Configuration\uBeac.Core.Configuration.csproj", "{CB99173E-2318-44E3-BA09-1478DC5644A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.Core.Web.Swagger", "uBeac.Core.Web.Swagger\uBeac.Core.Web.Swagger.csproj", "{386DFEA3-D0D3-48B1-942B-9A28FA4C383A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.Core.Web.Swagger", "uBeac.Core.Web.Swagger\uBeac.Core.Web.Swagger.csproj", "{386DFEA3-D0D3-48B1-942B-9A28FA4C383A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9C359FAE-E1E2-4B78-A5DC-F61845CC06D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.Core.Web", "uBeac.Core.Web\uBeac.Core.Web.csproj", "{7376DFF6-52B5-4848-895E-3B610DB68585}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.Core.Web", "uBeac.Core.Web\uBeac.Core.Web.csproj", "{7376DFF6-52B5-4848-895E-3B610DB68585}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{C7A1FA18-704E-416D-9868-D2ECA4ACDF73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,9 +70,11 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{91A4A08E-1A2A-4489-8619-1624F2C8F1D1} = {C7A1FA18-704E-416D-9868-D2ECA4ACDF73}
 		{07A61CC2-0BBE-4785-8579-833876C706B0} = {24F86BEC-414D-4D8C-A0A9-EE009520FD99}
 		{491C5CF4-EB2B-49F7-9DBD-41E181E8C865} = {24F86BEC-414D-4D8C-A0A9-EE009520FD99}
 		{53D26F05-6C63-4EA8-8FEE-82A2AA5B628B} = {1B0E9D5D-7B20-493D-B41A-A5B21C2A66BE}
+		{CB99173E-2318-44E3-BA09-1478DC5644A8} = {C7A1FA18-704E-416D-9868-D2ECA4ACDF73}
 		{386DFEA3-D0D3-48B1-942B-9A28FA4C383A} = {9C359FAE-E1E2-4B78-A5DC-F61845CC06D3}
 		{7376DFF6-52B5-4848-895E-3B610DB68585} = {9C359FAE-E1E2-4B78-A5DC-F61845CC06D3}
 	EndGlobalSection
