@@ -10,19 +10,20 @@ using uBeac.Core.Repositories.Abstractions;
 
 namespace uBeac.Core.Repositories.MongoDB
 {
-    public class MongoDBRepository<TKey, TEntity> : IEntityRepository<TKey, TEntity>
+    public class MongoEntityRepository<TKey, TEntity> : IEntityRepository<TKey, TEntity>
          where TKey : IEquatable<TKey>
          where TEntity : IEntity<TKey>
     {
         protected readonly IMongoCollection<TEntity> Collection;
         protected readonly IMongoCollection<BsonDocument> BsonCollection;
         protected readonly IMongoDatabase MongoDatabase;
+        protected readonly IMongoDBContext mongoDbContext;
 
-        public MongoDBRepository(IMongoDatabase mongoDatabase)
+        public MongoEntityRepository(IMongoDBContext mongoDbContext)
         {
-            MongoDatabase = mongoDatabase;
-            Collection = mongoDatabase.GetCollection<TEntity>(GetCollectionName());
-            BsonCollection = mongoDatabase.GetCollection<BsonDocument>(GetCollectionName());
+            MongoDatabase = mongoDbContext.Database;
+            Collection = mongoDbContext.Database.GetCollection<TEntity>(GetCollectionName());
+            BsonCollection = mongoDbContext.Database.GetCollection<BsonDocument>(GetCollectionName());
         }
 
         protected virtual string GetCollectionName()
@@ -96,5 +97,13 @@ namespace uBeac.Core.Repositories.MongoDB
             throw new NotImplementedException();
         }
 
+    }
+
+    public class MongoEntityRepository<TEntity> : MongoEntityRepository<Guid, TEntity>, IEntityRepository<TEntity>
+         where TEntity : IEntity
+    {
+        public MongoEntityRepository(IMongoDBContext mongoDbContext) : base(mongoDbContext)
+        {
+        }
     }
 }

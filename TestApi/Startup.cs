@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using uBeac.Core.Web;
+using TestApi.Services;
+using uBeac.Core.Repositories.Abstractions;
+using uBeac.Core.Repositories.MongoDB;
 using uBeac.Core.Web.Middlewares;
 
 namespace TestApi
@@ -18,12 +20,22 @@ namespace TestApi
             Environment = env;
             var configBuilder = new ConfigurationBuilder();
             configBuilder.AddJsonConfig(env);
+            configBuilder.AddEnvironmentVariables();
             Configuration = configBuilder.Build();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUnitService, UnitService>();
+            //services.AddScoped<IUnitRepository, UnitRepository>();
+            services.AddScoped(typeof(IEntityRepository<>), typeof(MongoEntityRepository<>));
+            services.AddScoped(typeof(IEntityRepository<,>), typeof(MongoEntityRepository<,>));
+            services.AddAutoMapper(typeof(MappingProfileForDTOs));
+            services.AddMongo<MongoDBContext>("TestConnection");
+
+            services.AddSingleton<IConfiguration>(Configuration);
             services.AddSingleton(Configuration);
+
             services.AddCoreSwaggerWithJWT("TestApi", "v1");
 
             services.AddHttpContextAccessor();

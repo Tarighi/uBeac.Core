@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace uBeac.Core.Web
 {
@@ -20,7 +21,7 @@ namespace uBeac.Core.Web
         public List<Error> Errors { get; } = new List<Error>();
         public string TraceId { get; set; }
         public int Duration { get; set; }
-        public int Code { get; set; }
+        public int Code { get; set; } = StatusCodes.Status200OK;
     }
 
     public class ResultSet<TResult> : ResultSet, IResultSet<TResult>

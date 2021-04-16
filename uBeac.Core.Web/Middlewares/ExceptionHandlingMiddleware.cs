@@ -26,7 +26,7 @@ namespace uBeac.Core.Web.Middlewares
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             // todo: add more trace/debug information
             var result = new ResultSet

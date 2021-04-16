@@ -10,7 +10,7 @@ namespace Microsoft.Extensions.Configuration
             var folderName = env.ContentRootPath + configFolder;
 
             // setting base path for config folder
-            //configBuilder.SetBasePath(folderName);
+            configBuilder.SetBasePath(folderName);
 
             foreach (var filename in Directory.GetFiles(folderName))
             {
