@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\uBeac.Core.Configuration\uBeac.Core.Configuration.csproj" />
     <ProjectReference Include="..\uBeac.Core.Repositories.MongoDB\uBeac.Core.Repositories.MongoDB.csproj" />
     <ProjectReference Include="..\uBeac.Core.Services\uBeac.Core.Services.csproj" />
     <ProjectReference Include="..\uBeac.Core.Web.Swagger\uBeac.Core.Web.Swagger.csproj" />

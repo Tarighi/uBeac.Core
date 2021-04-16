@@ -5,24 +5,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TestApi.Repositories;
 using TestApi.Services;
-using uBeac.Core.Repositories.Abstractions;
 using uBeac.Core.Repositories.MongoDB;
+using uBeac.Core.Web;
 using uBeac.Core.Web.Middlewares;
 
 namespace TestApi
 {
-    public class Startup
+    public class Startup : BaseStartup
     {
-        public IConfigurationRoot Configuration { get; }
-        public IWebHostEnvironment Environment { get; }
-
-        public Startup(IWebHostEnvironment env)
+        public Startup(IWebHostEnvironment env) : base(env)
         {
-            Environment = env;
-            var configBuilder = new ConfigurationBuilder();
-            configBuilder.AddJsonConfig(env);
-            configBuilder.AddEnvironmentVariables();
-            Configuration = configBuilder.Build();
         }
 
         public void ConfigureServices(IServiceCollection services)
