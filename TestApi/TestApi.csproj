@@ -6,9 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.10.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\uBeac.Core.Identity.MongoDB\uBeac.Core.Identity.MongoDB.csproj" />
     <ProjectReference Include="..\uBeac.Core.Repositories.MongoDB\uBeac.Core.Repositories.MongoDB.csproj" />
     <ProjectReference Include="..\uBeac.Core.Services\uBeac.Core.Services.csproj" />
     <ProjectReference Include="..\uBeac.Core.Web.Swagger\uBeac.Core.Web.Swagger.csproj" />

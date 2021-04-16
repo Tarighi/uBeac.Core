@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using uBeac.Core.Common;
@@ -18,21 +19,11 @@ namespace uBeac.Core.Repositories.Abstractions
         Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken = default);
         Task<TEntity> GetById(TKey id, CancellationToken cancellationToken = default);
         Task<IEnumerable<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
+        Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
     }
 
     public interface IEntityRepository<TEntity> : IEntityRepository<Guid, TEntity>
         where TEntity : IEntity
-    {
-    }
-
-    public interface IBaseEntityRepository<TKey, TEntity> : IEntityRepository<TKey, TEntity>
-      where TEntity : IBaseEntity<TKey>
-      where TKey : IEquatable<TKey>
-    {
-    }
-
-    public interface IBaseEntityRepository<TEntity> : IBaseEntityRepository<Guid, TEntity>
-       where TEntity : IBaseEntity
     {
     }
 }

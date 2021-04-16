@@ -5,7 +5,7 @@ namespace TestApi.Controllers
 {
     public class TestController : BaseController
     {
-        [HttpGet]
+        [Get]
         public IResultSet<int> Get()
         {
             var x = 1;

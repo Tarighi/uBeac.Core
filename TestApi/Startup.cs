@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using TestApi.Repositories;
 using TestApi.Services;
+using uBeac.Core.Identity;
 using uBeac.Core.Repositories.MongoDB;
 using uBeac.Core.Web;
 using uBeac.Core.Web.Middlewares;
@@ -22,6 +24,17 @@ namespace TestApi
             base.ConfigureServices(services);
 
             services.AddMongo<MainDBContext>("TestConnection");
+
+            services.AddIdentityMongoDbProvider<MainDBContext, User, Role, Guid>(identity =>
+            {
+                identity.Password.RequireDigit = false;
+                identity.Password.RequireLowercase = false;
+                identity.Password.RequireNonAlphanumeric = false;
+                identity.Password.RequireUppercase = false;
+                identity.Password.RequiredLength = 1;
+                identity.Password.RequiredUniqueChars = 0;
+            });
+
 
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<IUnitRepository, UnitRepository>();
@@ -59,6 +72,7 @@ namespace TestApi
             app.UseCoreSwagger("doc");
             app.UseRouting();
 
+            app.UseAuthentication();
             //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
