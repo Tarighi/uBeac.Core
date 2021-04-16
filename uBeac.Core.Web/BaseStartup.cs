@@ -14,7 +14,6 @@ namespace uBeac.Core.Web
             Environment = env;
             var configBuilder = new ConfigurationBuilder();
             configBuilder.AddJsonConfig(env);
-            //configBuilder.AddEnvironmentVariables();
             Configuration = configBuilder.Build();
         }
 
