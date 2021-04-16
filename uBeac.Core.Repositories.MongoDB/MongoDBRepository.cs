@@ -31,20 +31,10 @@ namespace uBeac.Core.Repositories.MongoDB
             return typeof(TEntity).Name;
         }
 
-        protected virtual FilterDefinition<TEntity> GetIdFilter(TKey id)
-        {
-            return Builders<TEntity>.Filter.Eq("_id", id);
-        }
-
-        protected virtual FilterDefinition<TEntity> GetIdsFilter(IEnumerable<TKey> ids)
-        {
-            return Builders<TEntity>.Filter.In("_id", ids);
-        }
-
         public virtual async Task<bool> Delete(TKey id, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var idFilter = GetIdFilter(id);
+            var idFilter = Builders<TEntity>.Filter.Eq(doc => doc.Id, id);
             var deleteResult = await Collection.DeleteOneAsync(idFilter, cancellationToken);
             return deleteResult.DeletedCount == 1;
         }
@@ -52,7 +42,7 @@ namespace uBeac.Core.Repositories.MongoDB
         public virtual async Task<long> DeleteMany(IEnumerable<TKey> ids, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var idsFilter = GetIdsFilter(ids);
+            var idsFilter = Builders<TEntity>.Filter.In(x=> x.Id, ids);
             var deleteResult = await Collection.DeleteManyAsync(idsFilter, cancellationToken);
             return deleteResult.DeletedCount;
         }
@@ -67,14 +57,14 @@ namespace uBeac.Core.Repositories.MongoDB
         public virtual async Task<TEntity> GetById(TKey id, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var idFilter = GetIdFilter(id);
-            return (await Collection.FindAsync(idFilter, null, cancellationToken)).FirstOrDefault(cancellationToken);
+            var idFilter = Builders<TEntity>.Filter.Eq(x=> x.Id, id);
+            return (await Collection.FindAsync(idFilter, null, cancellationToken)).SingleOrDefault(cancellationToken);
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var idsFilter = GetIdsFilter(ids);
+            var idsFilter = Builders<TEntity>.Filter.In(x => x.Id, ids);
             return (await Collection.FindAsync(idsFilter, null, cancellationToken)).ToEnumerable(cancellationToken);
         }
 
