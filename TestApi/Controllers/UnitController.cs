@@ -33,7 +33,7 @@ namespace TestApi.Controllers
         public async Task<IResultSet<bool>> Update([Body] UnitUpdateRequestDTO dto, CancellationToken cancellationToken = default)
         {
             var model = _mapper.Map<Unit>(dto);
-            var updated = await _service.Update(model, cancellationToken);
+            var updated = await _service.Replace(model, cancellationToken);
             return (updated != null).ToResultSet();
         }
 
@@ -41,7 +41,8 @@ namespace TestApi.Controllers
         public async Task<IResultSet<bool>> UpdateParent([Body] UnitUpdateParentRequestDTO dto, CancellationToken cancellationToken = default)
         {
             var model = _mapper.Map<Unit>(dto);
-            var isUpdated = await _service.Update(model, cancellationToken);
+            // todo: implement here
+            //var isUpdated = await _service.Update(model, cancellationToken);
             return false.ToResultSet();
         }
 
