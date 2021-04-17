@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class IdentityExtensions
     {
-        public static IdentityBuilder AddIdentityMongoDbProvider<TMongoDbContext, TUser, TRole, TKey>(this IServiceCollection services,
+        public static IdentityBuilder AddMongoDBIdentity<TMongoDbContext, TUser, TRole, TKey>(this IServiceCollection services,
            Action<IdentityOptions> setupIdentityAction)
             where TMongoDbContext : class, IMongoDBContext
             where TKey : IEquatable<TKey>
@@ -43,7 +43,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder;
         }
 
-        public static IdentityBuilder AddIdentityMongoDbProvider<TMongoDbContext, TUser, TRole>(this IServiceCollection services,
+        public static IdentityBuilder AddMongoDBIdentity<TMongoDbContext, TUser, TRole>(this IServiceCollection services,
         Action<IdentityOptions> setupIdentityAction)
          where TMongoDbContext : class, IMongoDBContext
          where TUser : User

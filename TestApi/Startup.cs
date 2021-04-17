@@ -25,7 +25,7 @@ namespace TestApi
 
             services.AddMongo<MainDBContext>("TestConnection");
 
-            services.AddIdentityMongoDbProvider<MainDBContext, User, Role, Guid>(identity =>
+            services.AddMongoDBIdentity<MainDBContext, User, Role>(identity =>
             {
                 identity.Password.RequireDigit = false;
                 identity.Password.RequireLowercase = false;
