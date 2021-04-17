@@ -32,8 +32,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     ValidateLifetime = true,
                     SaveSigninToken = true,
                     ValidAudience = jwtConfig.Audience,
-                    ValidIssuer = jwtConfig.Issuer,
-
+                    ValidIssuer = jwtConfig.Issuer
                 };
             });
 

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Security.Claims;
 using TestApi.Repositories;
 using TestApi.Services;
 using uBeac.Core.Identity;
@@ -22,6 +24,8 @@ namespace TestApi
         {
             base.ConfigureServices(services);
 
+            services.AddScoped<IApplicationContext, ApplicationContext>();
+
             services.AddJwtAuthentication(Configuration.GetInstance<JwtConfig>("Jwt"));
 
             services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
@@ -30,14 +34,24 @@ namespace TestApi
 
             services.AddMongo<MainDBContext>("TestConnection");
 
-            services.AddMongoDBIdentity<MainDBContext, User, Role>(identity =>
+            services.AddMongoDBIdentity<MainDBContext, User, Role>(options =>
             {
-                identity.Password.RequireDigit = false;
-                identity.Password.RequireLowercase = false;
-                identity.Password.RequireNonAlphanumeric = false;
-                identity.Password.RequireUppercase = false;
-                identity.Password.RequiredLength = 1;
-                identity.Password.RequiredUniqueChars = 0;
+                // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 1;
+                options.Password.RequiredUniqueChars = 0;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
             });
 
 
@@ -69,6 +83,8 @@ namespace TestApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            //app.UseHsts();
+            //app.UseHttpsRedirection();
 
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 

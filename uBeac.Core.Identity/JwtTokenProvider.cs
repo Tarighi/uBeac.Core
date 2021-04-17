@@ -34,6 +34,7 @@ namespace uBeac.Core.Identity
                 Subject = new ClaimsIdentity(new[]
                     {
                     new Claim("Id", user.Id.ToString()),
+                    new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
@@ -42,7 +43,7 @@ namespace uBeac.Core.Identity
                 Expires = DateTime.UtcNow.AddSeconds(_config.Expires),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
             };
-
+            
             return jwtTokenHandler.CreateJwtSecurityToken(tokenDescriptor);
         }
     }

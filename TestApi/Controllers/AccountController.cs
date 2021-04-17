@@ -17,7 +17,7 @@ namespace TestApi.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
         private readonly IJwtTokenProvider _jwtTokenProvider;
-        public AccountController(UserManager<User> userManager, IMapper mapper, IJwtTokenProvider jwtTokenProvider, IHttpContextAccessor httpContextAccessor)
+        public AccountController(UserManager<User> userManager, IMapper mapper, IJwtTokenProvider jwtTokenProvider, IApplicationContext applicationContext)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -26,7 +26,7 @@ namespace TestApi.Controllers
 
         [Get]
         //[Auth]
-        public async Task<string> Test([Query][Required][MinLength(2)] string ttt)
+        public async Task<string> Test([Query][Required][MinLength(2)] string ttt = "aaaa")
         {
             return await Task.FromResult("iuyiuyiuyiuyiuiu");
         }
