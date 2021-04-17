@@ -59,7 +59,7 @@ namespace TestApi.DTO
     {
         [Required]
         [DataType(DataType.Password)]
-        public string OldPassword { get; set; }
+        public string CurrentPassword { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
