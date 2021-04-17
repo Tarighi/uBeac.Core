@@ -27,7 +27,7 @@ namespace uBeac.Core.Identity
 
         private readonly IRoleRepository<TKey, TRole> _repository;
 
-        public IQueryable<TRole> Roles => _repository.GetAll().Result.AsQueryable();
+        public IQueryable<TRole> Roles => _repository.GetAll().Result.AsQueryable(); //todo: implement here
 
         public RoleStore(IRoleRepository<TKey, TRole> repository)
         {

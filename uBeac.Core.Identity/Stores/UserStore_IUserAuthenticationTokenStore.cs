@@ -8,21 +8,21 @@ namespace uBeac.Core.Identity
 {
     public partial class UserStore<TUser, TRole, TKey> : IUserAuthenticationTokenStore<TUser>
     {
-        public async Task SetTokenAsync(TUser user, string loginProvider, string name, string value, CancellationToken cancellationToken)
+        public Task SetTokenAsync(TUser user, string loginProvider, string name, string value, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            if (user.Tokens == null) user.Tokens = new List<IdentityUserToken<string>>();
+            if (user.Tokens == null)
+                user.Tokens = new List<IdentityUserToken<TKey>>();
 
             var token = user.Tokens.FirstOrDefault(x => x.LoginProvider == loginProvider && x.Name == name);
 
             if (token == null)
             {
-                token = new IdentityUserToken<string>
+                token = new IdentityUserToken<TKey>
                 {
                     LoginProvider = loginProvider,
                     Name = name,
-                    Value = value
+                    Value = value,
+                    UserId = user.Id
                 };
                 user.Tokens.Add(token);
             }
@@ -30,40 +30,21 @@ namespace uBeac.Core.Identity
             {
                 token.Value = value;
             }
-
-            var dbUser = await _repository.GetById(user.Id, cancellationToken);
-            dbUser.Tokens = user.Tokens;
-
-            await _repository.Replace(dbUser, cancellationToken);
+            return Task.FromResult(0);
         }
 
-        public async Task RemoveTokenAsync(TUser user, string loginProvider, string name, CancellationToken cancellationToken)
+        public Task RemoveTokenAsync(TUser user, string loginProvider, string name, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            var userTokens = user.Tokens ?? new List<IdentityUserToken<string>>();
+            var userTokens = user.Tokens ?? new List<IdentityUserToken<TKey>>();
             userTokens.RemoveAll(x => x.LoginProvider == loginProvider && x.Name == name);
 
-            var dbUser = await _repository.GetById(user.Id, cancellationToken);
-            var dbUserTokens = dbUser.Tokens ?? new List<IdentityUserToken<string>>();
-            dbUserTokens.RemoveAll(x => x.LoginProvider == loginProvider && x.Name == name);
-
-            await _repository.Replace(dbUser, cancellationToken);
+            return Task.FromResult(0);
         }
 
-        public async Task<string> GetTokenAsync(TUser user, string loginProvider, string name, CancellationToken cancellationToken)
+        public Task<string> GetTokenAsync(TUser user, string loginProvider, string name, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            var token = user?.Tokens?.FirstOrDefault(x => x.LoginProvider == loginProvider && x.Name == name);
-
-            if (token == null)
-            {
-                user = await _repository.GetById(user.Id, cancellationToken);
-                return user?.Tokens?.FirstOrDefault(x => x.LoginProvider == loginProvider && x.Name == name)?.Value;
-            }
-
-            return token.Value;
+            var token = user?.Tokens?.SingleOrDefault(x => x.LoginProvider == loginProvider && x.Name == name);
+            return Task.FromResult(token?.Value);
         }
     }
 }

@@ -9,62 +9,46 @@ namespace uBeac.Core.Identity
 {
     public partial class UserStore<TUser, TRole, TKey> : IUserClaimStore<TUser>
     {
-        public async Task AddClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
+        public Task AddClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            var dbUser = await _repository.GetById(user.Id, cancellationToken);
-
             foreach (var claim in claims)
             {
-                var identityClaim = new IdentityUserClaim<string>()
+                var identityClaim = new IdentityUserClaim<TKey>()
                 {
                     ClaimType = claim.Type,
-                    ClaimValue = claim.Value
+                    ClaimValue = claim.Value,
+                    UserId = user.Id,
+                    Id = 0 // todo: what should we set here?
                 };
 
                 user.Claims.Add(identityClaim);
-                dbUser.Claims.Add(identityClaim);
             }
-
-            await _repository.Replace(dbUser, cancellationToken);
-
+            return Task.FromResult(0);
         }
 
-        public async Task ReplaceClaimAsync(TUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken)
+        public Task ReplaceClaimAsync(TUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            var dbUser = await _repository.GetById(user.Id, cancellationToken);
-
             user.Claims.RemoveAll(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value);
-            dbUser.Claims.RemoveAll(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value);
 
-            var identityClaim = new IdentityUserClaim<string>()
+            var identityClaim = new IdentityUserClaim<TKey>()
             {
                 ClaimType = newClaim.Type,
-                ClaimValue = newClaim.Value
+                ClaimValue = newClaim.Value,
+                UserId = user.Id,
+                Id = 0 // todo: what should we set here?
             };
 
             user.Claims.Add(identityClaim);
-            dbUser.Claims.Add(identityClaim);
 
-            await _repository.Replace(dbUser, cancellationToken);
+            return Task.FromResult(0);
         }
 
-        public async Task RemoveClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
+        public Task RemoveClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            var dbUser = await _repository.GetById(user.Id, cancellationToken);
-
             foreach (var claim in claims)
-            {
                 user.Claims.RemoveAll(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value);
-                dbUser.Claims.RemoveAll(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value);
-            }
 
-            await _repository.Replace(dbUser, cancellationToken);
+            return Task.FromResult(0);
         }
 
         public async Task<IList<TUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken)

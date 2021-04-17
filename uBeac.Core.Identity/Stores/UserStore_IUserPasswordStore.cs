@@ -8,26 +8,18 @@ namespace uBeac.Core.Identity
     {
         public Task<string> GetPasswordHashAsync(TUser user, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             return Task.FromResult(user.PasswordHash);
         }
 
-        public async Task<bool> HasPasswordAsync(TUser user, CancellationToken cancellationToken)
+        public Task<bool> HasPasswordAsync(TUser user, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            return (await _repository.GetById(user.Id, cancellationToken))?.PasswordHash != null;
+            return Task.FromResult(user.PasswordHash != null);
         }
 
-        public async Task SetPasswordHashAsync(TUser user, string passwordHash, CancellationToken cancellationToken)
+        public Task SetPasswordHashAsync(TUser user, string passwordHash, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
             user.PasswordHash = passwordHash;
-
-            var dbUser = await _repository.GetById(user.Id, cancellationToken);
-            dbUser.PasswordHash = passwordHash;
-
-            await _repository.Replace(user, cancellationToken);
+            return Task.FromResult(0);
         }
     }
 }

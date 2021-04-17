@@ -11,9 +11,9 @@ namespace uBeac.Core.Identity
         public User()
         {
             Roles = new List<string>();
-            Claims = new List<IdentityUserClaim<string>>();
-            Logins = new List<IdentityUserLogin<string>>();
-            Tokens = new List<IdentityUserToken<string>>();
+            Claims = new List<IdentityUserClaim<TKey>>();
+            Logins = new List<IdentityUserLogin<TKey>>();
+            Tokens = new List<IdentityUserToken<TKey>>();
             RecoveryCodes = new List<TwoFactorRecoveryCode>();
         }
 
@@ -27,11 +27,11 @@ namespace uBeac.Core.Identity
 
         public List<string> Roles { get; set; }
 
-        public List<IdentityUserClaim<string>> Claims { get; set; }
+        public List<IdentityUserClaim<TKey>> Claims { get; set; }
 
-        public List<IdentityUserLogin<string>> Logins { get; set; }
+        public List<IdentityUserLogin<TKey>> Logins { get; set; }
 
-        public List<IdentityUserToken<string>> Tokens { get; set; }
+        public List<IdentityUserToken<TKey>> Tokens { get; set; }
 
         public List<TwoFactorRecoveryCode> RecoveryCodes { get; set; }
     }

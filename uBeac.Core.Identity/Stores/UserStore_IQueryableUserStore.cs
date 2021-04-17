@@ -5,6 +5,6 @@ namespace uBeac.Core.Identity
 {
     public partial class UserStore<TUser, TRole, TKey> : IQueryableUserStore<TUser>
     {
-        public IQueryable<TUser> Users => _repository.GetAll().Result.AsQueryable();
+        public IQueryable<TUser> Users => _repository.GetAll().Result.AsQueryable(); // todo: implement here!
     }
 }
