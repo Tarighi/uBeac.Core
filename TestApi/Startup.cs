@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 using TestApi.Repositories;
 using TestApi.Services;
 using uBeac.Core.Identity;
@@ -22,6 +21,12 @@ namespace TestApi
         public override void ConfigureServices(IServiceCollection services)
         {
             base.ConfigureServices(services);
+
+            services.AddJwtAuthentication(Configuration.GetInstance<JwtConfig>("Jwt"));
+
+            services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
+
+            services.AddAuthorization();
 
             services.AddMongo<MainDBContext>("TestConnection");
 
@@ -73,7 +78,7 @@ namespace TestApi
             app.UseRouting();
 
             app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

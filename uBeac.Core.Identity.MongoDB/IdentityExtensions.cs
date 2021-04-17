@@ -16,10 +16,6 @@ namespace Microsoft.Extensions.DependencyInjection
             where TRole : Role<TKey>
         {
 
-            //// Identity Services
-            //services.AddTransient<IRoleStore<TRole>>(x => new RoleStore<TRole, TKey>(roleCollection));
-            //services.AddTransient<IUserStore<TUser>>(x => new UserStore<TUser, TRole, TKey>(userCollection, new RoleStore<TRole, TKey>(roleCollection), x.GetService<ILookupNormalizer>()));
-
             services.AddScoped<IUserRepository<TKey, TUser>>(provider =>
             {
                 var dbContext = provider.GetService<TMongoDbContext>();
@@ -44,12 +40,12 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         public static IdentityBuilder AddMongoDBIdentity<TMongoDbContext, TUser, TRole>(this IServiceCollection services,
-        Action<IdentityOptions> setupIdentityAction)
-         where TMongoDbContext : class, IMongoDBContext
-         where TUser : User
-         where TRole : Role
+            Action<IdentityOptions> setupIdentityAction)
+            where TMongoDbContext : class, IMongoDBContext
+            where TUser : User
+            where TRole : Role
         {
-            services.AddScoped<IUserRepository<TUser>>(provider => 
+            services.AddScoped<IUserRepository<TUser>>(provider =>
             {
                 var dbContext = provider.GetService<TMongoDbContext>();
                 return new MongoUserRepository<TUser>(dbContext);

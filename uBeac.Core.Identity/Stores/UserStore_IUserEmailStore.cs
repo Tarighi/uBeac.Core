@@ -7,10 +7,9 @@ namespace uBeac.Core.Identity
 {
     public partial class UserStore<TUser, TRole, TKey> : IUserEmailStore<TUser>
     {
-        public async Task<string> GetEmailAsync(TUser user, CancellationToken cancellationToken)
+        public Task<string> GetEmailAsync(TUser user, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            return (await _repository.GetById(user.Id, cancellationToken))?.Email ?? user.Email;
+            return Task.FromResult(user.Email);
         }
 
         public Task<bool> GetEmailConfirmedAsync(TUser user, CancellationToken cancellationToken)
@@ -36,14 +35,14 @@ namespace uBeac.Core.Identity
 
         public Task SetNormalizedEmailAsync(TUser user, string normalizedEmail, CancellationToken cancellationToken)
         {
-            user.NormalizedEmail = normalizedEmail ?? _normalizer.NormalizeEmail(user.Email);
+            user.NormalizedEmail = normalizedEmail;
             return Task.FromResult(0);
         }
 
-        public async Task SetEmailAsync(TUser user, string email, CancellationToken cancellationToken)
+        public Task SetEmailAsync(TUser user, string email, CancellationToken cancellationToken)
         {
             user.Email = email;
-            await SetNormalizedEmailAsync(user, _normalizer.NormalizeEmail(user.Email), cancellationToken);
+            return Task.FromResult(0);
         }
     }
 }

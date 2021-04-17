@@ -12,6 +12,7 @@ namespace uBeac.Core.Web
     //[SwaggerResponse(403, "Forbidden")]
     //[SwaggerResponse(404, "Not Found")]
     //[SwaggerResponse(500, "Unhandled Exception")]
+    // todo: add model validator
     [TypeFilter(typeof(ResultSetFilter))]
     public abstract class BaseController
     {

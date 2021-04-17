@@ -1,0 +1,8 @@
+{
+  "Jwt": {
+    "Issuer": "http://localhost:63079",
+    "Audience": "http://localhost:63079",
+    "Expires": 6000,
+    "Secret": "ijurkbdlhmklqacwqzdxmkkhvqowlyqa"
+  }
+}

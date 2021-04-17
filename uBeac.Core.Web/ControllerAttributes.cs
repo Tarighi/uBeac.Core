@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace uBeac.Core.Web
@@ -71,5 +72,13 @@ namespace uBeac.Core.Web
 
     public class AnonymousAttribute : AllowAnonymousAttribute
     {
+    }
+
+    public class AuthAttribute : AuthorizeAttribute 
+    {
+        public AuthAttribute()
+        {
+            AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme;
+        }        
     }
 }

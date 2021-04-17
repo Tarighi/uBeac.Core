@@ -27,9 +27,12 @@ namespace Microsoft.Extensions.Configuration
                   .AddJsonFile($"{Path.GetFileNameWithoutExtension(filename)}.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
             }
 
-            //configBuilder.AddEnvironmentVariables();
-
             return configBuilder;
+        }
+
+        public static T GetInstance<T>(this IConfiguration configuration, string sectionName) 
+        {
+            return configuration.GetSection(sectionName).Get<T>();
         }
     }
 }
