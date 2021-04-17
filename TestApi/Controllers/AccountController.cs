@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using TestApi.DTO;
@@ -25,14 +25,14 @@ namespace TestApi.Controllers
         }
 
         [Get]
-        [Auth]
-        public async Task<string> Test()
+        //[Auth]
+        public async Task<string> Test([Query][Required][MinLength(2)] string ttt)
         {
             return await Task.FromResult("iuyiuyiuyiuyiuiu");
         }
 
         [Post]
-        public async Task<IResultSet<RegisterResponse>> Register([FromBody] RegisterRequest model)
+        public async Task<IResultSet<RegisterResponse>> Register([Body] RegisterRequest model)
         {
 
             var user = _mapper.Map<User>(model);
@@ -74,7 +74,7 @@ namespace TestApi.Controllers
         }
 
         [Post]
-        public async Task<IResultSet<bool>> ResetPassword([Body] ResetPasswordRequest model) 
+        public async Task<IResultSet<bool>> ResetPassword([Body] ResetPasswordRequest model)
         {
             return true.ToResultSet();
         }
