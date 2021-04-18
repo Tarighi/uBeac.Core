@@ -92,6 +92,7 @@ namespace TestApi
             app.UseStaticFiles();
             app.UseCoreSwagger("doc");
             app.UseRouting();
+            app.UseMiddleware<AuthenticationMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
