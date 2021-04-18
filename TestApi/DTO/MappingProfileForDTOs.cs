@@ -11,15 +11,6 @@ namespace TestApi
     {
         public MappingProfileForDTOs()
         {
-            // account dto mappings
-
-            // register
-            CreateMap<RegisterRequest, User>();
-            CreateMap<User, RegisterResponse>();
-            CreateMap<IdentityError, Error>();
-
-            // authenticate
-            CreateMap<User, LoginResponse>();
 
             //CreateMap<IdentityResult, RegisterResponse>()
             //    .ForMember(x => x.Errors, x => x.MapFrom(y => y.Errors));

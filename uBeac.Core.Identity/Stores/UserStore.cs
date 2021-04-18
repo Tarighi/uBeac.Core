@@ -8,7 +8,7 @@ namespace uBeac.Core.Identity
         where TUser : User
         where TRole : Role
     {
-        public UserStore(IUserRepository<TUser> repository, IRoleStore<TRole> roleStore, ILookupNormalizer normalizer) : base(repository, roleStore, normalizer)
+        public UserStore(IUserRepository<TUser> repository, IRoleStore<TRole> roleStore) : base(repository, roleStore)
         {
         }
     }
@@ -21,13 +21,11 @@ namespace uBeac.Core.Identity
 
         private readonly IRoleStore<TRole> _roleStore;
         private readonly IUserRepository<TKey, TUser> _repository;
-        private readonly ILookupNormalizer _normalizer;
 
-        public UserStore(IUserRepository<TKey, TUser> repository, IRoleStore<TRole> roleStore, ILookupNormalizer normalizer)
+        public UserStore(IUserRepository<TKey, TUser> repository, IRoleStore<TRole> roleStore)
         {
             _repository = repository;
             _roleStore = roleStore;
-            _normalizer = normalizer;
         }
 
         public virtual TKey ConvertIdFromString(string id)

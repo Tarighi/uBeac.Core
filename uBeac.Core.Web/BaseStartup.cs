@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -19,8 +20,24 @@ namespace uBeac.Core.Web
 
         public virtual void ConfigureServices(IServiceCollection services) 
         {
+            services.AddHttpContextAccessor();
+
+            services.AddScoped<IApplicationContext, ApplicationContext>();
+
             services.AddSingleton<IConfiguration>(Configuration);
+
             services.AddSingleton(Configuration);
+
+            services.AddMvcCore()
+                .AddDataAnnotations()
+                .AddApiExplorer()
+                .AddFormatterMappings()
+                .AddCors();
+
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+            });
         }
 
     }

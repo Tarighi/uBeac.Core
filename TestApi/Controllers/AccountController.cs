@@ -1,12 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using TestApi.DTO;
+using TestApi.Models;
 using uBeac.Core.Identity;
 using uBeac.Core.Web;
 
@@ -14,85 +10,42 @@ namespace TestApi.Controllers
 {
     public class AccountController : BaseController
     {
-        private readonly UserManager<User> _userManager;
-        private readonly IMapper _mapper;
-        private readonly IJwtTokenProvider _jwtTokenProvider;
-        public AccountController(UserManager<User> userManager, IMapper mapper, IJwtTokenProvider jwtTokenProvider, IApplicationContext applicationContext)
+        private readonly IUserService<AppUser, AppRole> _userService;
+        public AccountController(IUserService<AppUser, AppRole> userService)
         {
-            _userManager = userManager;
-            _mapper = mapper;
-            _jwtTokenProvider = jwtTokenProvider;
-        }
-
-        [Get]
-        //[Auth]
-        public async Task<string> Test([Query][Required][MinLength(2)] string ttt = "aaaa")
-        {
-            return await Task.FromResult("iuyiuyiuyiuyiuiu");
+            _userService = userService;
         }
 
         [Post]
-        public async Task<IResultSet<RegisterResponse>> Register([Body] RegisterRequest model)
+        public async Task<IResultSet<Guid>> Register([Body] RegisterRequest model)
         {
-
-            var user = _mapper.Map<User>(model);
-
-            var idResult = await _userManager.CreateAsync(user, model.Password);
-
-            // creating result set with created user informarion
-            var resultSet = _mapper.Map<RegisterResponse>(user).ToResultSet();
-
-            // setting create user IdentityResult errors to the ResultSet
-            resultSet.Errors.AddRange(_mapper.Map<List<Error>>(idResult.Errors));
-
-            return resultSet;
-        }
-
-        [Post]
-        public async Task<IResultSet<LoginResponse>> Authenticate([Body] LoginRequest model)
-        {
-            var user = await _userManager.FindByNameAsync(model.Username);
-            LoginResponse response = null;
-
-            if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password))
+            var user = new AppUser 
             {
-                var result = new ResultSet<LoginResponse>(response)
-                {
-                    Code = StatusCodes.Status401Unauthorized
-                };
-                result.Errors.Add(new Error { Code = "AUTH_FAILED", Description = "Invalid username or password!" });
-                return result;
-            }
+                UserName=model.Username,
+                Email=model.Email                 
+            };
 
-            var token = _jwtTokenProvider.GenerateToken<Guid, User>(user);
+            await _userService.Create(user, model.Password);
 
-            response = _mapper.Map<LoginResponse>(user);
-            response.Token = new JwtSecurityTokenHandler().WriteToken(token);
-            response.Expiration = token.ValidTo;
+            return user.Id.ToResultSet();
+        }
 
+        [Post]
+        public async Task<IResultSet<LoginResponse>> Authenticate([Body] LoginRequest model, CancellationToken cancellationToken = default)
+        {
+            var authResult = await _userService.Authenticate(model.Username, model.Password, cancellationToken);
+            
+            var response = new LoginResponse
+            {
+                Email = authResult.User.Email,
+                Expiration = authResult.Expiration,
+                Id = authResult.User.Id,
+                Token = authResult.Token,
+                Username = authResult.User.UserName
+            };
+            
             return response.ToResultSet();
         }
-
-        [Post]
-        public async Task<IResultSet<bool>> ResetPassword([Body] ResetPasswordRequest model)
-        {
-            return true.ToResultSet();
-        }
-
-        [Post]
-        [Auth]
-        public async Task<IResultSet<bool>> ChangePassword([Body] ChangePasswordRequest model)
-        {
-            return true.ToResultSet();
-        }
-
-        [Post]
-        [Auth]
-        public async Task<IResultSet<bool>> Claims()
-        {
-            return true.ToResultSet();
-        }
-
     }
 
 }

@@ -9,8 +9,11 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, JwtConfig jwtConfig)
         {
-
             services.AddSingleton(jwtConfig);
+
+            services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
+
+            services.AddAuthorization();
 
             services.AddAuthentication(options =>
             {

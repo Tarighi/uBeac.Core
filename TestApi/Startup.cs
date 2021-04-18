@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Security.Claims;
+using TestApi.Models;
 using TestApi.Repositories;
 using TestApi.Services;
 using uBeac.Core.Identity;
@@ -24,17 +24,11 @@ namespace TestApi
         {
             base.ConfigureServices(services);
 
-            services.AddScoped<IApplicationContext, ApplicationContext>();
-
             services.AddJwtAuthentication(Configuration.GetInstance<JwtConfig>("Jwt"));
-
-            services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
-
-            services.AddAuthorization();
-
+            
             services.AddMongo<MainDBContext>("TestConnection");
 
-            services.AddMongoDBIdentity<MainDBContext, User, Role>(options =>
+            services.AddMongoDBIdentity<MainDBContext, AppUser, AppRole>(options =>
             {
                 // Password settings.
                 options.Password.RequireDigit = false;
@@ -61,20 +55,6 @@ namespace TestApi
             services.AddAutoMapper(typeof(MappingProfileForDTOs));
 
             services.AddCoreSwaggerWithJWT("TestApi", "v1");
-
-            services.AddHttpContextAccessor();
-
-            services.AddMvcCore()
-                .AddDataAnnotations()
-                .AddApiExplorer()
-                .AddFormatterMappings()
-                .AddCors();
-
-            services.AddResponseCompression(options =>
-            {
-                options.EnableForHttps = true;
-            });
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

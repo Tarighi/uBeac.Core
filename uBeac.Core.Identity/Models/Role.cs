@@ -5,9 +5,11 @@ using uBeac.Core.Common;
 
 namespace uBeac.Core.Identity
 {
-    public class Role<TKey> : IdentityRole<TKey>, IEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public class Role<TKey>: IdentityRole<TKey>, IEntity<TKey>
+        where TKey: IEquatable<TKey>
     {
+        public List<IdentityRoleClaim<TKey>> Claims { get; set; }
+
         public Role()
         {
             Claims = new List<IdentityRoleClaim<TKey>>();
@@ -23,12 +25,9 @@ namespace uBeac.Core.Identity
         {
             return Name;
         }
-
-        public List<IdentityRoleClaim<TKey>> Claims { get; set; }
     }
 
     public class Role : Role<Guid>, IEntity
     {
     }
-
 }

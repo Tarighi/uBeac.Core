@@ -42,9 +42,12 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IdentityBuilder AddMongoDBIdentity<TMongoDbContext, TUser, TRole>(this IServiceCollection services,
             Action<IdentityOptions> setupIdentityAction)
             where TMongoDbContext : class, IMongoDBContext
-            where TUser : User
-            where TRole : Role
+            where TUser: User
+            where TRole: Role
         {
+
+            services.AddScoped(typeof(IUserService<,>), typeof(UserService<,>));
+
             services.AddScoped<IUserRepository<TUser>>(provider =>
             {
                 var dbContext = provider.GetService<TMongoDbContext>();

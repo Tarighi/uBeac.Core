@@ -22,13 +22,6 @@ namespace TestApi.DTO
         public string Password { get; set; }
     }
 
-    public class RegisterResponse
-    {
-        public Guid Id { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-    }
-
     public class LoginRequest
     {
         [Required]
