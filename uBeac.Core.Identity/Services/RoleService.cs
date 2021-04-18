@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -26,21 +27,23 @@ namespace uBeac.Core.Identity
         where TRole : Role<TKey>
     {
 
-        private readonly RoleStore<TRole, TKey> _roleStore;
+        private readonly RoleManager<TRole> _roleManager;
 
-        public RoleService(RoleStore<TRole, TKey> roleStore)
+        public RoleService(RoleManager<TRole> roleManager)
         {
-            _roleStore = roleStore;
+            _roleManager = roleManager;
         }
 
         public async Task<bool> Delete(TKey id, CancellationToken cancellationToken = default)
         {
-            var role = await _roleStore.FindByIdAsync(id.ToString(), cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var role = await _roleManager.FindByIdAsync(id.ToString());
 
             if (role is null)
                 throw new Exception("Role Id does not exist!");
 
-            var idResult = await _roleStore.DeleteAsync(role, cancellationToken);
+            var idResult = await _roleManager.DeleteAsync(role);
 
             if (!idResult.Succeeded)
             {
@@ -53,12 +56,15 @@ namespace uBeac.Core.Identity
 
         public Task<IEnumerable<TRole>> GetAll(CancellationToken cancellationToken = default)
         {
-            return Task.FromResult(_roleStore.Roles.AsEnumerable());
+            cancellationToken.ThrowIfCancellationRequested();
+            return Task.FromResult(_roleManager.Roles.AsEnumerable());
         }
 
         public async Task Insert(TRole role, CancellationToken cancellationToken = default)
         {
-            var idResult =  await _roleStore.CreateAsync(role, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var idResult = await _roleManager.CreateAsync(role);
 
             if (!idResult.Succeeded)
             {
@@ -69,7 +75,9 @@ namespace uBeac.Core.Identity
 
         public async Task<bool> Update(TRole role, CancellationToken cancellationToken = default)
         {
-            var idResult= await _roleStore.UpdateAsync(role, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var idResult = await _roleManager.UpdateAsync(role);
 
             if (!idResult.Succeeded)
             {
@@ -83,7 +91,7 @@ namespace uBeac.Core.Identity
     public class RoleService<TRole> : RoleService<Guid, TRole>, IRoleService<TRole>
         where TRole : Role
     {
-        public RoleService(RoleStore<TRole> roleStore) : base(roleStore)
+        public RoleService(RoleManager<TRole> roleManager) : base(roleManager)
         {
         }
     }
