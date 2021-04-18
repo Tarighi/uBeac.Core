@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TestApi.DTO
 {
@@ -14,5 +15,10 @@ namespace TestApi.DTO
         public string Name { get; set; }
     }
 
+    public class RoleResponse 
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+    }
 
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
@@ -24,9 +25,10 @@ namespace TestApi.Controllers
         }
 
         [Get]
-        public async Task<IListResultSet<AppRole>> GetAll(CancellationToken cancellationToken = default)
+        public async Task<IListResultSet<RoleResponse>> GetAll(CancellationToken cancellationToken = default)
         {
-            return (await _roleService.GetAll(cancellationToken)).ToList().ToListResultSet();
+            var roles = (await _roleService.GetAll(cancellationToken)).ToList();
+            return _mapper.Map<List<RoleResponse>>(roles).ToListResultSet();
         }
 
         [Post]

@@ -11,6 +11,7 @@ namespace TestApi
 
             CreateMap<RoleAddRequest, AppRole>();
             CreateMap<RoleUpdateRequest, AppRole>();
+            CreateMap<AppRole, RoleResponse>();
 
             // custom entity
             CreateMap<UnitAddRequestDTO, Unit>();
