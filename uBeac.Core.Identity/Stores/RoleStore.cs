@@ -6,7 +6,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using uBeac.Core.Repositories.Abstractions;
 
 namespace uBeac.Core.Identity
 {

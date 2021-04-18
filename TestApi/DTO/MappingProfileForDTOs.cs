@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using TestApi.DTO;
 using TestApi.Models;
-using uBeac.Core.Identity;
-using uBeac.Core.Web;
 
 namespace TestApi
 {
@@ -12,9 +9,8 @@ namespace TestApi
         public MappingProfileForDTOs()
         {
 
-            //CreateMap<IdentityResult, RegisterResponse>()
-            //    .ForMember(x => x.Errors, x => x.MapFrom(y => y.Errors));
-
+            CreateMap<RoleAddRequest, AppRole>();
+            CreateMap<RoleUpdateRequest, AppRole>();
 
             // custom entity
             CreateMap<UnitAddRequestDTO, Unit>();

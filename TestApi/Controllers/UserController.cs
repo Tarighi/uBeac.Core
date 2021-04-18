@@ -8,10 +8,10 @@ using uBeac.Core.Web;
 
 namespace TestApi.Controllers
 {
-    public class AccountController : BaseController
+    public class UserController : BaseController
     {
         private readonly IUserService<AppUser, AppRole> _userService;
-        public AccountController(IUserService<AppUser, AppRole> userService)
+        public UserController(IUserService<AppUser, AppRole> userService)
         {
             _userService = userService;
         }

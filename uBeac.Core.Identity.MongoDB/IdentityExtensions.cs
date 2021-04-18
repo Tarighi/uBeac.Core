@@ -16,6 +16,12 @@ namespace Microsoft.Extensions.DependencyInjection
             where TRole : Role<TKey>
         {
 
+
+            services.AddScoped(typeof(IUserService<,,>), typeof(UserService<,,>));
+            services.AddScoped(typeof(IRoleService<,>), typeof(IRoleService<,>));
+
+            services.AddScoped(typeof(RoleStore<>));
+
             services.AddScoped<IUserRepository<TKey, TUser>>(provider =>
             {
                 var dbContext = provider.GetService<TMongoDbContext>();
@@ -46,7 +52,11 @@ namespace Microsoft.Extensions.DependencyInjection
             where TRole: Role
         {
 
+
             services.AddScoped(typeof(IUserService<,>), typeof(UserService<,>));
+            services.AddScoped(typeof(IRoleService<>), typeof(RoleService<>));
+
+            services.AddScoped(typeof(RoleStore<>));
 
             services.AddScoped<IUserRepository<TUser>>(provider =>
             {

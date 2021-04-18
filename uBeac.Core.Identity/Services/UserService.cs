@@ -47,8 +47,8 @@ namespace uBeac.Core.Identity
             return new AuthResult<TKey, TUser>
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
-                 Expiration = token.ValidTo,
-                 User = user
+                Expiration = token.ValidTo,
+                User = user
             };
 
         }
