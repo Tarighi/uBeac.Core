@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using uBeac.Core.Common;
 
 namespace uBeac.Core.Identity
 {

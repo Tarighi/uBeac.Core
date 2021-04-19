@@ -40,16 +40,11 @@ namespace uBeac.Core.Identity
 
             var role = await _roleManager.FindByIdAsync(id.ToString());
 
-            if (role is null)
-                throw new Exception("Role Id does not exist!");
+            role.ThrowIfNull();
 
             var idResult = await _roleManager.DeleteAsync(role);
 
-            if (!idResult.Succeeded)
-            {
-                var message = string.Empty;
-                throw new Exception(string.Join("\r\n", idResult.Errors.Select(x => x.Code + "," + x.Description)));
-            }
+            idResult.ThrowIfInvalid();
 
             return true;
         }
@@ -66,11 +61,8 @@ namespace uBeac.Core.Identity
 
             var idResult = await _roleManager.CreateAsync(role);
 
-            if (!idResult.Succeeded)
-            {
-                var message = string.Empty;
-                throw new Exception(string.Join("\r\n", idResult.Errors.Select(x => x.Code + "," + x.Description)));
-            }
+            idResult.ThrowIfInvalid();
+
         }
 
         public virtual async Task<bool> Update(TRole role, CancellationToken cancellationToken = default)
@@ -79,11 +71,8 @@ namespace uBeac.Core.Identity
 
             var idResult = await _roleManager.UpdateAsync(role);
 
-            if (!idResult.Succeeded)
-            {
-                var message = string.Empty;
-                throw new Exception(string.Join("\r\n", idResult.Errors.Select(x => x.Code + "," + x.Description)));
-            }
+            idResult.ThrowIfInvalid();
+
             return true;
         }
     }

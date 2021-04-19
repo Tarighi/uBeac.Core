@@ -1,5 +1,5 @@
 ﻿using System;
-using uBeac.Core.Common;
+using uBeac.Core;
 
 namespace TestApi.Models
 {

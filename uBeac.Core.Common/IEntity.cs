@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uBeac.Core.Common
+namespace uBeac.Core
 {
     public interface IEntity<TKey> where TKey : IEquatable<TKey>
     {

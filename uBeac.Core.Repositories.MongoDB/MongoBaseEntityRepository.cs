@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using uBeac.Core.Common;
 using uBeac.Core.Repositories.Abstractions;
 
 namespace uBeac.Core.Repositories.MongoDB

@@ -1,5 +1,4 @@
 ﻿using System;
-using uBeac.Core.Common;
 using uBeac.Core.Repositories.Abstractions;
 
 namespace uBeac.Core.Services

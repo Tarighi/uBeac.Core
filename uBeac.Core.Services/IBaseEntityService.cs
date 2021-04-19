@@ -1,5 +1,4 @@
 ﻿using System;
-using uBeac.Core.Common;
 
 namespace uBeac.Core.Services
 {

@@ -6,7 +6,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using uBeac.Core.Common;
 using uBeac.Core.Repositories.Abstractions;
 
 namespace uBeac.Core.Repositories.MongoDB

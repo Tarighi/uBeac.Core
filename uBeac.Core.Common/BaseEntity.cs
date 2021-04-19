@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uBeac.Core.Common
+namespace uBeac.Core
 {
     public class BaseEntity<TKey> : Entity<TKey>, IBaseEntity<TKey>
        where TKey : IEquatable<TKey>

@@ -59,11 +59,7 @@ namespace uBeac.Core.Identity
         {
             var idResult = await _userManager.CreateAsync(user, password);
 
-            if (!idResult.Succeeded)
-            {
-                var message = string.Empty;
-                throw new Exception(string.Join("\r\n", idResult.Errors.Select(x => x.Code + "," + x.Description)));
-            }
+            idResult.ThrowIfInvalid();
         }
 
         public virtual Task<TUser> GetById(TKey id, CancellationToken cancellationToken = default)
