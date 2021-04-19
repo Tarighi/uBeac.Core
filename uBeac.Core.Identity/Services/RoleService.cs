@@ -34,7 +34,7 @@ namespace uBeac.Core.Identity
             _roleManager = roleManager;
         }
 
-        public async Task<bool> Delete(TKey id, CancellationToken cancellationToken = default)
+        public virtual async Task<bool> Delete(TKey id, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -54,13 +54,13 @@ namespace uBeac.Core.Identity
             return true;
         }
 
-        public Task<IEnumerable<TRole>> GetAll(CancellationToken cancellationToken = default)
+        public virtual Task<IEnumerable<TRole>> GetAll(CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
             return Task.FromResult(_roleManager.Roles.AsEnumerable());
         }
 
-        public async Task Insert(TRole role, CancellationToken cancellationToken = default)
+        public virtual async Task Insert(TRole role, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -73,7 +73,7 @@ namespace uBeac.Core.Identity
             }
         }
 
-        public async Task<bool> Update(TRole role, CancellationToken cancellationToken = default)
+        public virtual async Task<bool> Update(TRole role, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 

@@ -1,12 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using uBeac.Core.Web;
 
 namespace TestApi.DTO
 {
+    public class UserResponse 
+    {
+        public Guid Id { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public bool LockoutEnabled { get; set; }
+        public int AccessFailedCount { get; set; }
+        public string EmailConfirmed { get; set; }
+        public string PhoneNumber { get; set; }
+        public string PhoneNumberConfirmed { get; set; }
+    }
+
     public class RegisterRequest
     {
         // todo: automatically generate message for model binding validation

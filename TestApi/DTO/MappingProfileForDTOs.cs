@@ -9,6 +9,8 @@ namespace TestApi
         public MappingProfileForDTOs()
         {
 
+            CreateMap<AppUser, UserResponse>();
+
             CreateMap<RoleAddRequest, AppRole>();
             CreateMap<RoleUpdateRequest, AppRole>();
             CreateMap<AppRole, RoleResponse>();

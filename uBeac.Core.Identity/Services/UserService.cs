@@ -12,8 +12,10 @@ namespace uBeac.Core.Identity
        where TUser : User<TKey>
        where TRole : Role<TKey>
     {
-        public Task Create(TUser user, string password, CancellationToken cancellationToken = default);
-        public Task<AuthResult<TKey, TUser>> Authenticate(string username, string password, CancellationToken cancellationToken = default);
+        Task Create(TUser user, string password, CancellationToken cancellationToken = default);
+        Task<AuthResult<TKey, TUser>> Authenticate(string username, string password, CancellationToken cancellationToken = default);
+        Task<TUser> GetById(TKey id, CancellationToken cancellationToken = default);
+
     }
 
     public interface IUserService<TUser, TRole> : IUserService<Guid, TUser, TRole>
@@ -62,6 +64,11 @@ namespace uBeac.Core.Identity
                 var message = string.Empty;
                 throw new Exception(string.Join("\r\n", idResult.Errors.Select(x => x.Code + "," + x.Description)));
             }
+        }
+
+        public virtual Task<TUser> GetById(TKey id, CancellationToken cancellationToken = default)
+        {
+            return _userManager.FindByIdAsync(id.ToString());
         }
     }
 
