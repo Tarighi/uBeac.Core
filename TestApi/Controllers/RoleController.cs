@@ -52,9 +52,9 @@ namespace TestApi.Controllers
         }
 
         [Post]
-        public async Task<IResultSet<bool>> Remove([Body][Required] Guid id, CancellationToken cancellationToken = default)
+        public async Task<IResultSet<bool>> Remove([Body] RoleRemoveRequest model, CancellationToken cancellationToken = default)
         {
-            var deleteResult = await _roleService.Delete(id, cancellationToken);
+            var deleteResult = await _roleService.Delete(model.Id, cancellationToken);
             return deleteResult.ToResultSet();
         }
 

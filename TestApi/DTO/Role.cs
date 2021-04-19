@@ -13,7 +13,16 @@ namespace TestApi.DTO
     public class RoleUpdateRequest
     {
         [Required]
+        public Guid Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
+    }
+
+    public class RoleRemoveRequest
+    {
+        [Required]
+        public Guid Id { get; set; }
     }
 
     public class RoleResponse 
