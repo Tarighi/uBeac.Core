@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\uBeac.Core.Repositories.MongoDB\uBeac.Core.Repositories.MongoDB.csproj" />
+    <ProjectReference Include="..\uBeac.IoT.Models\uBeac.IoT.Models.csproj" />
+  </ItemGroup>
+
+</Project>

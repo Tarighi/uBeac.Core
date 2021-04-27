@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using uBeac.Core.Common;
 using uBeac.Core.Repositories.Abstractions;
 
 namespace uBeac.Core.Services
@@ -52,9 +51,9 @@ namespace uBeac.Core.Services
             return Repository.InsertMany(entities, cancellationToken);
         }
 
-        public virtual Task<bool> Update(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual Task<TEntity> Replace(TEntity entity, CancellationToken cancellationToken = default)
         {
-            return Repository.Update(entity, cancellationToken);
+            return Repository.Replace(entity, cancellationToken);
         }
     }
 

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Authors>Amir Pournasserian</Authors>
+    <Company>uBeac</Company>
+    <Product>ubeac.io</Product>
+    <PackageProjectUrl>https://www.ubeac.io/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ubeac/uBeac.Core</RepositoryUrl>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\uBeac.Core.Identity\uBeac.Core.Identity.csproj" />
+    <ProjectReference Include="..\uBeac.Core.Repositories.MongoDB\uBeac.Core.Repositories.MongoDB.csproj" />
+  </ItemGroup>
+
+</Project>
