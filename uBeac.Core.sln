@@ -29,9 +29,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{C7A1FA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security", "Security", "{8CAB8121-1EC1-4995-9DA1-EAE311D7A06A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.Core.Identity", "uBeac.Core.Identity\uBeac.Core.Identity.csproj", "{8E9300EF-0386-41A5-9723-EFE0A8DA0951}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.Core.Identity", "uBeac.Core.Identity\uBeac.Core.Identity.csproj", "{8E9300EF-0386-41A5-9723-EFE0A8DA0951}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.Core.Identity.MongoDB", "uBeac.Core.Identity.MongoDB\uBeac.Core.Identity.MongoDB.csproj", "{527CD0AF-01EF-45B9-965E-921C86EB493B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.Core.Identity.MongoDB", "uBeac.Core.Identity.MongoDB\uBeac.Core.Identity.MongoDB.csproj", "{527CD0AF-01EF-45B9-965E-921C86EB493B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.IoT.Api", "uBeac.IoT.Api\uBeac.IoT.Api.csproj", "{CF859690-5172-4DEB-A665-01B5E2843F11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.IoT.Models", "uBeac.IoT.Models\uBeac.IoT.Models.csproj", "{C3718EEF-2030-4ADE-A013-624A603FBFE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.IoT.Services", "uBeac.IoT.Services\uBeac.IoT.Services.csproj", "{A590A9E1-375B-4900-884C-9706586FA041}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.IoT.Repositories", "uBeac.IoT.Repositories\uBeac.IoT.Repositories.csproj", "{53FE6FDE-E421-46D6-9D38-785481315029}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +87,22 @@ Global
 		{527CD0AF-01EF-45B9-965E-921C86EB493B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{527CD0AF-01EF-45B9-965E-921C86EB493B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{527CD0AF-01EF-45B9-965E-921C86EB493B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF859690-5172-4DEB-A665-01B5E2843F11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF859690-5172-4DEB-A665-01B5E2843F11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF859690-5172-4DEB-A665-01B5E2843F11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF859690-5172-4DEB-A665-01B5E2843F11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3718EEF-2030-4ADE-A013-624A603FBFE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3718EEF-2030-4ADE-A013-624A603FBFE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3718EEF-2030-4ADE-A013-624A603FBFE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3718EEF-2030-4ADE-A013-624A603FBFE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A590A9E1-375B-4900-884C-9706586FA041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A590A9E1-375B-4900-884C-9706586FA041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A590A9E1-375B-4900-884C-9706586FA041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A590A9E1-375B-4900-884C-9706586FA041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53FE6FDE-E421-46D6-9D38-785481315029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53FE6FDE-E421-46D6-9D38-785481315029}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53FE6FDE-E421-46D6-9D38-785481315029}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53FE6FDE-E421-46D6-9D38-785481315029}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,66 +1,66 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using Microsoft.AspNetCore.Http;
+//using System;
+//using System.Collections.Generic;
+//using System.IdentityModel.Tokens.Jwt;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace TestApi
-{
-    public class AuthenticationMiddleware
-    {
-        private readonly RequestDelegate _next;
+//namespace TestApi
+//{
+//    public class AuthenticationMiddleware
+//    {
+//        private readonly RequestDelegate _next;
 
-        // Dependency Injection
-        public AuthenticationMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
+//        // Dependency Injection
+//        public AuthenticationMiddleware(RequestDelegate next)
+//        {
+//            _next = next;
+//        }
 
-        public async Task Invoke(HttpContext context)
-        {
-            //Reading the AuthHeader which is signed with JWT
-            string authHeader = context.Request.Headers["Authorization"];
+//        public async Task Invoke(HttpContext context)
+//        {
+//            //Reading the AuthHeader which is signed with JWT
+//            string authHeader = context.Request.Headers["Authorization"];
 
-            if (authHeader != null)
-            {
-                var jwtEncodedString = authHeader.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
+//            if (authHeader != null)
+//            {
+//                var jwtEncodedString = authHeader.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
 
-                var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
-                //Console.WriteLine("email => " + token.Claims.First(c => c.Type == "Email").Value);
-            }
-                //{
-                //     //Reading the JWT middle part           
-                //     int startPoint = authHeader.IndexOf(".") + 1;
-                //     int endPoint = authHeader.LastIndexOf(".");
+//                var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+//                //Console.WriteLine("email => " + token.Claims.First(c => c.Type == "Email").Value);
+//            }
+//                //{
+//                //     //Reading the JWT middle part           
+//                //     int startPoint = authHeader.IndexOf(".") + 1;
+//                //     int endPoint = authHeader.LastIndexOf(".");
 
-                //     var tokenString = authHeader
-                //         .Substring(startPoint, endPoint - startPoint).Split(".");
-                //     var token = tokenString[0].ToString() + "==";
+//                //     var tokenString = authHeader
+//                //         .Substring(startPoint, endPoint - startPoint).Split(".");
+//                //     var token = tokenString[0].ToString() + "==";
 
-                //     var credentialString = Encoding.UTF8
-                //         .GetString(Convert.FromBase64String(token));
+//                //     var credentialString = Encoding.UTF8
+//                //         .GetString(Convert.FromBase64String(token));
 
-                //     // Splitting the data from Jwt
-                //     var credentials = credentialString.Split(new char[] { ':', ',' });
+//                //     // Splitting the data from Jwt
+//                //     var credentials = credentialString.Split(new char[] { ':', ',' });
 
-                //     // Trim this Username and UserRole.
-                //     var userRule = credentials[5].Replace("\"", "");
-                //     var userName = credentials[3].Replace("\"", "");
+//                //     // Trim this Username and UserRole.
+//                //     var userRule = credentials[5].Replace("\"", "");
+//                //     var userName = credentials[3].Replace("\"", "");
 
-                //     // Identity Principal
-                //     var claims = new[]
-                //     {
-                //    new Claim("name", userName),
-                //    new Claim(ClaimTypes.Role, userRule),
-                //};
-                //     var identity = new ClaimsIdentity(claims, "basic");
-                //     context.User = new ClaimsPrincipal(identity);
-                // }
-                //Pass to the next middleware
-                await _next(context);
-        }
-    }
+//                //     // Identity Principal
+//                //     var claims = new[]
+//                //     {
+//                //    new Claim("name", userName),
+//                //    new Claim(ClaimTypes.Role, userRule),
+//                //};
+//                //     var identity = new ClaimsIdentity(claims, "basic");
+//                //     context.User = new ClaimsPrincipal(identity);
+//                // }
+//                //Pass to the next middleware
+//                await _next(context);
+//        }
+//    }
 
-}
+//}

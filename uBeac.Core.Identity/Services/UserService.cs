@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

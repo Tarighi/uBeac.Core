@@ -1,34 +1,30 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using TestApi.Models;
-using TestApi.Repositories;
-using TestApi.Services;
+using uBeac.Core.Web;
 using uBeac.Core.Identity;
 using uBeac.Core.Repositories.MongoDB;
-using uBeac.Core.Web;
+using Microsoft.Extensions.Configuration;
 using uBeac.Core.Web.Middlewares;
 
-namespace TestApi
+namespace uBeac.IoT.Api
 {
     public class Startup : BaseStartup
     {
         public Startup(IWebHostEnvironment env) : base(env)
         {
         }
-
         public override void ConfigureServices(IServiceCollection services)
         {
             base.ConfigureServices(services);
 
             services.AddJwtAuthentication(Configuration.GetInstance<JwtConfig>("Jwt"));
-            
-            services.AddMongo<MainDBContext>("TestConnection");
 
-            services.AddMongoDBIdentity<MainDBContext, AppUser, AppRole>(options =>
+            services.AddMongo<MainDBContext>("uBeac");
+
+            services.AddMongoDBIdentity<MainDBContext, User, Role>(options =>
             {
                 // Password settings.
                 options.Password.RequireDigit = false;
@@ -48,13 +44,9 @@ namespace TestApi
                 options.User.RequireUniqueEmail = true;
             });
 
-
-            services.AddScoped<IUnitService, UnitService>();
-            services.AddScoped<IUnitRepository, UnitRepository>();
-
             services.AddAutoMapper(typeof(MappingProfileForDTOs));
 
-            services.AddCoreSwaggerWithJWT("TestApi", "v1");
+            services.AddCoreSwaggerWithJWT("uBaec.Api", "v1");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
