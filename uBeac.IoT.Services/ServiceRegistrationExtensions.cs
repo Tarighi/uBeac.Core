@@ -9,6 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IFirmwareService, FirmwareService>();
             services.AddScoped<IManufacturerService, ManufacturerService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ITeamService, TeamService>();
 
             return services;
         }

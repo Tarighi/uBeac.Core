@@ -29,18 +29,18 @@ namespace uBeac.IoT.Api.Controllers
         }
 
         [Post]
-        public async Task<IResultSet<Guid>> Add([Body] ManufacturerAddRequestDTO dto, CancellationToken cancellationToken = default)
+        public async Task<IResultSet<Guid>> Add([Body] ManufacturerAddRequest model, CancellationToken cancellationToken = default)
         {
-            var model = _mapper.Map<Manufacturer>(dto);
-            await _mfService.Insert(model, cancellationToken);
-            return model.Id.ToResultSet();
+            var manufacturer = _mapper.Map<Manufacturer>(model);
+            await _mfService.Insert(manufacturer, cancellationToken);
+            return manufacturer.Id.ToResultSet();
         }
 
         [Post]
-        public async Task<IResultSet<bool>> Update([Body] ManufacturerUpdateRequestDTO dto, CancellationToken cancellationToken = default)
+        public async Task<IResultSet<bool>> Update([Body] ManufacturerUpdateRequest model, CancellationToken cancellationToken = default)
         {
-            var model = _mapper.Map<Manufacturer>(dto);
-            var isUpdated = (await _mfService.Replace(model, cancellationToken)) != null;
+            var manufacturer = _mapper.Map<Manufacturer>(model);
+            var isUpdated = (await _mfService.Replace(manufacturer, cancellationToken)) != null;
             return isUpdated.ToResultSet();
         }
 
@@ -53,7 +53,7 @@ namespace uBeac.IoT.Api.Controllers
         }
 
         [Get]
-        public async Task<IListResultSet<ManufacturerViewDTO>> GetAll(CancellationToken cancellationToken = default)
+        public async Task<IListResultSet<ManufacturerResponse>> GetAll(CancellationToken cancellationToken = default)
         {
             var manufacturersTask = _mfService.GetAll(cancellationToken);
             var productsTask = _prService.GetAll(cancellationToken);
@@ -61,9 +61,9 @@ namespace uBeac.IoT.Api.Controllers
 
             await Task.WhenAll(manufacturersTask, productsTask, firmwaresTask);
 
-            var manufacturersVm = _mapper.Map<List<ManufacturerViewDTO>>(manufacturersTask.Result.ToList());
-            var productsVm = _mapper.Map<List<ProductViewDTO>>(productsTask.Result.ToList());
-            var firmwaresVm = _mapper.Map<List<FirmwareViewDTO>>(firmwaresTask.Result.ToList());
+            var manufacturersVm = _mapper.Map<List<ManufacturerResponse>>(manufacturersTask.Result.ToList());
+            var productsVm = _mapper.Map<List<ProductResponse>>(productsTask.Result.ToList());
+            var firmwaresVm = _mapper.Map<List<FirmwareResponse>>(firmwaresTask.Result.ToList());
 
             // todo: this should be moved to service or repository?
             manufacturersVm.ForEach(mft =>

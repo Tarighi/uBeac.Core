@@ -4,7 +4,7 @@ using uBeac.IoT.Models;
 
 namespace uBeac.IoT.Api.DTO
 {
-    public class ProductAddRequestDTO
+    public class ProductAddRequest
     {
         public Guid ManufacturerId { get; set; }
         public string Name { get; set; }
@@ -14,13 +14,13 @@ namespace uBeac.IoT.Api.DTO
         public string Url { get; set; }
     }
 
-    public class ProductUpdateRequestDTO : ProductAddRequestDTO
+    public class ProductUpdateRequest : ProductAddRequest
     {
         public Guid Id { get; set; }
     }
 
-    public class ProductViewDTO : Product
+    public class ProductResponse : Product
     {
-        public List<FirmwareViewDTO> Firmwares { get; set; }
+        public List<FirmwareResponse> Firmwares { get; set; }
     }
 }

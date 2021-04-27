@@ -19,6 +19,7 @@ namespace uBeac.Core.Repositories.Abstractions
         Task<TEntity> GetById(TKey id, CancellationToken cancellationToken = default);
         Task<IEnumerable<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
         Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
+        Task<bool> Any(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
     }
 
     public interface IEntityRepository<TEntity> : IEntityRepository<Guid, TEntity>

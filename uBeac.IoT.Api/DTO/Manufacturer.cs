@@ -4,21 +4,21 @@ using uBeac.IoT.Models;
 
 namespace uBeac.IoT.Api.DTO
 {
-    public class ManufacturerAddRequestDTO
+    public class ManufacturerAddRequest
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public string Website { get; set; }
         public Guid Logo { get; set; }
     }
-    public class ManufacturerUpdateRequestDTO : ManufacturerAddRequestDTO
+    public class ManufacturerUpdateRequest : ManufacturerAddRequest
     {
         public Guid Id { get; set; }
     }
 
-    public class ManufacturerViewDTO : Manufacturer
+    public class ManufacturerResponse : Manufacturer
     {
-        public List<ProductViewDTO> Products { get; set; }
+        public List<ProductResponse> Products { get; set; }
     }
 
 }

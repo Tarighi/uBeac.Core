@@ -7,7 +7,7 @@ namespace uBeac.Core.Services
       where TEntity : IBaseEntity<TKey>
       where TKey : IEquatable<TKey>
     {
-        public BaseEntityService(IBaseEntityRepository<TKey, TEntity> repository):base(repository)
+        public BaseEntityService(IBaseEntityRepository<TKey, TEntity> repository) : base(repository)
         {
         }
     }

@@ -92,6 +92,12 @@ namespace uBeac.Core.Repositories.MongoDB
             var findResult = await Collection.FindAsync(filter, cancellationToken: cancellationToken);
             return findResult.ToEnumerable(cancellationToken);
         }
+
+        public virtual async Task<bool> Any(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default)
+        {
+            var findResult = await Collection.FindAsync(filter, cancellationToken: cancellationToken);
+            return findResult.ToEnumerable(cancellationToken).Any();
+        }
     }
 
     public class MongoEntityRepository<TEntity> : MongoEntityRepository<Guid, TEntity>, IEntityRepository<TEntity>

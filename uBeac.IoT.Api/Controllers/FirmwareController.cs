@@ -20,20 +20,20 @@ namespace uBeac.IoT.Api.Controllers
         }
 
         [Post]
-        public async Task<IResultSet<Guid>> Add([Body] FirmwareAddRequestDTO dto, CancellationToken cancellationToken = default)
+        public async Task<IResultSet<Guid>> Add([Body] FirmwareAddRequest model, CancellationToken cancellationToken = default)
         {
             // todo: check if product exists
-            var model = _mapper.Map<Firmware>(dto);
-            await _service.Insert(model, cancellationToken);
-            return model.Id.ToResultSet();
+            var firmware = _mapper.Map<Firmware>(model);
+            await _service.Insert(firmware, cancellationToken);
+            return firmware.Id.ToResultSet();
         }
 
         [Post]
-        public async Task<IResultSet<bool>> Update([Body] FirmwareUpdateRequestDTO dto, CancellationToken cancellationToken = default)
+        public async Task<IResultSet<bool>> Update([Body] FirmwareUpdateRequest model, CancellationToken cancellationToken = default)
         {
             // todo: check if product exists
-            var model = _mapper.Map<Firmware>(dto);
-            var isUpdated = (await _service.Replace(model, cancellationToken)) != null;
+            var firmware = _mapper.Map<Firmware>(model);
+            var isUpdated = (await _service.Replace(firmware, cancellationToken)) != null;
             return isUpdated.ToResultSet();
         }
 

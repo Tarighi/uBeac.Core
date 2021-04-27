@@ -22,20 +22,20 @@ namespace uBeac.IoT.Api.Controllers
         }
 
         [Post]
-        public async Task<IResultSet<Guid>> Add([Body] ProductAddRequestDTO dto, CancellationToken cancellationToken = default)
+        public async Task<IResultSet<Guid>> Add([Body] ProductAddRequest model, CancellationToken cancellationToken = default)
         {
             // todo: check if manufacturer exists
-            var model = _mapper.Map<Product>(dto);
-            await _service.Insert(model, cancellationToken);
-            return model.Id.ToResultSet();
+            var product = _mapper.Map<Product>(model);
+            await _service.Insert(product, cancellationToken);
+            return product.Id.ToResultSet();
         }
 
         [Post]
-        public async Task<IResultSet<bool>> Update([Body] ProductUpdateRequestDTO dto, CancellationToken cancellationToken = default)
+        public async Task<IResultSet<bool>> Update([Body] ProductUpdateRequest model, CancellationToken cancellationToken = default)
         {
             // todo: check if manufacturer exists
-            var model = _mapper.Map<Product>(dto);
-            var isUpdated = (await _service.Replace(model, cancellationToken)) != null;
+            var product = _mapper.Map<Product>(model);
+            var isUpdated = (await _service.Replace(product, cancellationToken)) != null;
             return isUpdated.ToResultSet();
         }
 
@@ -44,7 +44,7 @@ namespace uBeac.IoT.Api.Controllers
         {
             // todo: check if it has child firmware
             var isDeleted = await _service.Delete(id, cancellationToken);
-            return isDeleted.ToResultSet(); ;
+            return isDeleted.ToResultSet();
         }
 
     }

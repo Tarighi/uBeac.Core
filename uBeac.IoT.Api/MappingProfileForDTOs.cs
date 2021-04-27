@@ -10,17 +10,17 @@ namespace uBeac.IoT.Api
     {
         public MappingProfileForDTOs()
         {
-            CreateMap<ManufacturerAddRequestDTO, Manufacturer>();
-            CreateMap<ManufacturerUpdateRequestDTO, Manufacturer>();
-            CreateMap<Manufacturer, ManufacturerViewDTO>();
+            CreateMap<ManufacturerAddRequest, Manufacturer>();
+            CreateMap<ManufacturerUpdateRequest, Manufacturer>();
+            CreateMap<Manufacturer, ManufacturerResponse>();
 
-            CreateMap<ProductAddRequestDTO, Product>();
-            CreateMap<ProductUpdateRequestDTO, Product>();
-            CreateMap<Product, ProductViewDTO>();
+            CreateMap<ProductAddRequest, Product>();
+            CreateMap<ProductUpdateRequest, Product>();
+            CreateMap<Product, ProductResponse>();
 
-            CreateMap<FirmwareAddRequestDTO, Firmware>();
-            CreateMap<FirmwareUpdateRequestDTO, Firmware>();
-            CreateMap<Firmware, FirmwareViewDTO>();
+            CreateMap<FirmwareAddRequest, Firmware>();
+            CreateMap<FirmwareUpdateRequest, Firmware>();
+            CreateMap<Firmware, FirmwareResponse>();
 
             CreateMap<User, UserResponse>();
             CreateMap<RegisterRequest, User>();
@@ -29,6 +29,11 @@ namespace uBeac.IoT.Api
             CreateMap<RoleAddRequest, Role>();
             CreateMap<RoleUpdateRequest, Role>();
             CreateMap<Role, RoleResponse>();
+
+            CreateMap<TeamAddRequest, Team>();
+            CreateMap<TeamUpdateRequest, Team>();
+            CreateMap<Team, TeamResponse>();
+
         }
     }
 }
