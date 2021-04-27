@@ -11,10 +11,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton(provider =>
             {
                 var configuration = provider.GetService<IConfiguration>();
-                return new MongoDBOptions<MainDBContext>(configuration.GetConnectionString(connectionString));
+                return new MongoDBOptions<TMongoDbContext>(configuration.GetConnectionString(connectionString));
             });
 
             services.AddSingleton<TMongoDbContext>();
+            services.AddSingleton<IMongoDBContext, TMongoDbContext>();
 
             return services;
 

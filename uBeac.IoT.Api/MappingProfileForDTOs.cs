@@ -22,10 +22,6 @@ namespace uBeac.IoT.Api
             CreateMap<FirmwareUpdateRequestDTO, Firmware>();
             CreateMap<Firmware, FirmwareViewDTO>();
 
-            CreateMap<UnitAddRequestDTO, Unit>();
-            CreateMap<UnitUpdateRequestDTO, Unit>();
-            CreateMap<Unit, UnitViewDTO>();
-
             CreateMap<User, UserResponse>();
             CreateMap<RegisterRequest, User>();
             CreateMap<AuthResult<Guid, User>, LoginResponse>();
@@ -33,10 +29,6 @@ namespace uBeac.IoT.Api
             CreateMap<RoleAddRequest, Role>();
             CreateMap<RoleUpdateRequest, Role>();
             CreateMap<Role, RoleResponse>();
-
-            // custom entity
-            CreateMap<UnitAddRequestDTO, Unit>();
-            CreateMap<UnitUpdateRequestDTO, Unit>();
         }
     }
 }

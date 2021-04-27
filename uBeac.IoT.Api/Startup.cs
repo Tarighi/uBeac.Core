@@ -8,6 +8,8 @@ using uBeac.Core.Identity;
 using uBeac.Core.Repositories.MongoDB;
 using Microsoft.Extensions.Configuration;
 using uBeac.Core.Web.Middlewares;
+using uBeac.Core.Services;
+using uBeac.Core.Repositories.Abstractions;
 
 namespace uBeac.IoT.Api
 {
@@ -20,9 +22,21 @@ namespace uBeac.IoT.Api
         {
             base.ConfigureServices(services);
 
+            services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
+            services.AddScoped(typeof(IEntityService<,>), typeof(EntityService<,>));
+            services.AddScoped(typeof(IBaseEntityService<>), typeof(BaseEntityService<>));
+            services.AddScoped(typeof(IBaseEntityService<,>), typeof(BaseEntityService<,>));
+
+            services.AddScoped(typeof(IEntityRepository<>), typeof(MongoEntityRepository<>));
+            services.AddScoped(typeof(IEntityRepository<,>), typeof(MongoEntityRepository<,>));
+            services.AddScoped(typeof(IBaseEntityRepository<>), typeof(MongoBaseEntityRepository<>));
+            services.AddScoped(typeof(IBaseEntityRepository<,>), typeof(MongoBaseEntityRepository<,>));
+
+            services.RegisterServices();
+
             services.AddJwtAuthentication(Configuration.GetInstance<JwtConfig>("Jwt"));
 
-            services.AddMongo<MainDBContext>("uBeac");
+            services.AddMongo<MainDBContext>("DefaultConnection");
 
             services.AddMongoDBIdentity<MainDBContext, User, Role>(options =>
             {
