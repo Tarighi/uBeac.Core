@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\uBeac.Core.Services\uBeac.Core.Services.csproj" />
-    <ProjectReference Include="..\uBeac.IoT.Models\uBeac.IoT.Models.csproj" />
+    <ProjectReference Include="..\uBeac.IoT.Repositories\uBeac.IoT.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

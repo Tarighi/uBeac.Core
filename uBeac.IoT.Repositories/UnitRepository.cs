@@ -1,8 +1,8 @@
-﻿using TestApi.Models;
-using uBeac.Core.Repositories.Abstractions;
+﻿using uBeac.Core.Repositories.Abstractions;
 using uBeac.Core.Repositories.MongoDB;
+using uBeac.IoT.Models;
 
-namespace TestApi.Repositories
+namespace uBeac.IoT.Repositories
 {
     public interface IUnitRepository : IBaseEntityRepository<Unit>
     {
