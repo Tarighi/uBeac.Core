@@ -9,7 +9,6 @@ namespace uBeac.IoT.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime? LastRequestDate { get; set; }
-        public long RequestCount { get; set; }
         public GatewaySecurity Security { get; set; }
     }
 
