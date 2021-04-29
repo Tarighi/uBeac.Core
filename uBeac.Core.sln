@@ -31,13 +31,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.Core.Identity", "uBea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.Core.Identity.MongoDB", "uBeac.Core.Identity.MongoDB\uBeac.Core.Identity.MongoDB.csproj", "{527CD0AF-01EF-45B9-965E-921C86EB493B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.IoT.Api", "uBeac.IoT.Api\uBeac.IoT.Api.csproj", "{CF859690-5172-4DEB-A665-01B5E2843F11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.IoT.Api", "uBeac.IoT.Api\uBeac.IoT.Api.csproj", "{CF859690-5172-4DEB-A665-01B5E2843F11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.IoT.Models", "uBeac.IoT.Models\uBeac.IoT.Models.csproj", "{C3718EEF-2030-4ADE-A013-624A603FBFE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.IoT.Models", "uBeac.IoT.Models\uBeac.IoT.Models.csproj", "{C3718EEF-2030-4ADE-A013-624A603FBFE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.IoT.Services", "uBeac.IoT.Services\uBeac.IoT.Services.csproj", "{A590A9E1-375B-4900-884C-9706586FA041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.IoT.Services", "uBeac.IoT.Services\uBeac.IoT.Services.csproj", "{A590A9E1-375B-4900-884C-9706586FA041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.IoT.Repositories", "uBeac.IoT.Repositories\uBeac.IoT.Repositories.csproj", "{53FE6FDE-E421-46D6-9D38-785481315029}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uBeac.IoT.Repositories", "uBeac.IoT.Repositories\uBeac.IoT.Repositories.csproj", "{53FE6FDE-E421-46D6-9D38-785481315029}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uBeac.Core.Enums", "uBeac.Core.Enums\uBeac.Core.Enums.csproj", "{4E542A02-CE4F-489D-B98E-00EE717990F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +99,10 @@ Global
 		{53FE6FDE-E421-46D6-9D38-785481315029}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53FE6FDE-E421-46D6-9D38-785481315029}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53FE6FDE-E421-46D6-9D38-785481315029}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E542A02-CE4F-489D-B98E-00EE717990F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E542A02-CE4F-489D-B98E-00EE717990F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E542A02-CE4F-489D-B98E-00EE717990F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E542A02-CE4F-489D-B98E-00EE717990F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +117,7 @@ Global
 		{7376DFF6-52B5-4848-895E-3B610DB68585} = {9C359FAE-E1E2-4B78-A5DC-F61845CC06D3}
 		{8E9300EF-0386-41A5-9723-EFE0A8DA0951} = {8CAB8121-1EC1-4995-9DA1-EAE311D7A06A}
 		{527CD0AF-01EF-45B9-965E-921C86EB493B} = {8CAB8121-1EC1-4995-9DA1-EAE311D7A06A}
+		{4E542A02-CE4F-489D-B98E-00EE717990F2} = {C7A1FA18-704E-416D-9868-D2ECA4ACDF73}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73D4EA05-E8B6-4FD1-A44F-3E26AE106008}

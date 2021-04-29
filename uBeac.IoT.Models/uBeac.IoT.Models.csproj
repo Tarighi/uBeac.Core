@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\uBeac.Core.Common\uBeac.Core.Common.csproj" />
+    <ProjectReference Include="..\uBeac.Core.Enums\uBeac.Core.Enums.csproj" />
   </ItemGroup>
 
 </Project>

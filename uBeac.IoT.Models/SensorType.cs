@@ -1,6 +1,6 @@
 ﻿namespace uBeac.IoT.Models
 {
-    public enum SensorTypes
+    public enum SensorType
     {
         NA = 0,
         Custom = 1,

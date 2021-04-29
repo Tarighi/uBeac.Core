@@ -1,7 +1,13 @@
-﻿namespace uBeac.IoT.Models
+﻿using System;
+using System.ComponentModel;
+using uBeac.Core;
+
+namespace uBeac.IoT.Models
 {
-    public enum SensorUnits
+    [Enum("this is enum desc")]
+    public enum SensorUnit
     {
+        [Description("Undefined sensor unit.")]
         NA = 0,
         Percent = 1,
         Centigrade = 2,
